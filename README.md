@@ -7,6 +7,8 @@
 
 # ember-block-slots <br /> [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
 
+Support for multiple yield slots within a component block
+
 Give credit to @runspired
 
 This README outlines the details of collaborating on this Ember addon.
