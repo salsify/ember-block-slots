@@ -1,0 +1,20 @@
+<vbox>
+  {{log slots}}
+  {{#if slots.header}}
+    <box fit>
+      {{yield (hash name='header' register=(action _registerSlot) params=(arr header 'hello' 'world'))}}
+    </box>
+  {{/if}}
+
+  {{#if slots.main}}
+    <hbox>
+      {{yield (hash name='main' register=(action _registerSlot) params=(arr body 'goodnight' 'moon'))}}
+    </hbox>
+  {{/if}}
+
+  {{#if slots.footer}}
+    <box fit>
+      {{yield (hash name='footer' register=(action _registerSlot) params=(arr footer 'awesome' 'you'))}}
+    </box>
+  {{/if}}
+</vbox>
