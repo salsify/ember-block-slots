@@ -25,9 +25,11 @@ const component = Component.extend({
   register: null,
 
   shouldDisplay: computed('name', 'slot.name', function() {
+//    return true
     return this.get('name') === this.get('slot.name');
   }),
 
+  // TODO Should be able to have unlimited params
   p1: computed('slot.params.[]', function() {
     return this.get('slot.params').objectAt(0);
   }),
@@ -51,7 +53,8 @@ const component = Component.extend({
   init() {
     this._super();
     assert("You must include a name for your block", this.name);
-    this.slot.register(this.name);
+    this.parentView._registerSlot(this.name)
+//    this.slot.register(this.name);
   }
 });
 

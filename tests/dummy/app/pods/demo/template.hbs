@@ -1,22 +1,8 @@
 {{#sample-component as |slot|}}
-  {{#block-slot slot "header" as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} {{w2}}
+  {{#block-slot slot 'header' as |info w1 w2|}}
+    Block-param {{info.title}} | {{w1}} {{w2}}
   {{/block-slot}}
-  {{#block-slot slot "main" as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} {{w2}}
-  {{/block-slot}}
-  {{#block-slot slot "footer" as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} {{w2}}
-  {{/block-slot}}
-{{/sample-component}}
-
-<br>
-
-{{#sample-component as |slot|}}
-  {{#block-slot slot "header" as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} {{w2}}
-  {{/block-slot}}
-  {{#block-slot slot "footer" as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} {{w2}}
+  {{#block-slot slot 'footer'}}
+    No block-param FOOTER
   {{/block-slot}}
 {{/sample-component}}

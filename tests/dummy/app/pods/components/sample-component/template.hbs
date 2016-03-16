@@ -1,25 +1,26 @@
-{{yield (hash register=(action _registerSlot))}}
+{{yield}}
 
 <div>
+  {{!-- I remember having a solution to this in a project where I didn't need to specify the {header: true} ahead of time...  --}}
   {{#if slots.header}}
     <div>
-      {{yield (hash name='header' register=(action _registerSlot) params=(arr header 'hello' 'world'))}}
+      {{yield (hash name='header' params=(arr header 'hello' 'world'))}}
     </div>
   {{/if}}
 
   {{#if slots.main}}
     <div>
-      {{yield (hash name='main' register=(action _registerSlot) params=(arr body 'goodnight' 'moon'))}}
+      {{yield (hash name='main' params=(arr body 'goodnight' 'moon'))}}
     </div>
   {{else}}
     <div>
-      I am the default {{body.title}}
+      Default {{body.title}}
     </div>
   {{/if}}
 
   {{#if slots.footer}}
     <div>
-      {{yield (hash name='footer' register=(action _registerSlot) params=(arr footer 'awesome' 'you'))}}
+      {{yield (hash name='footer' params=(arr footer 'awesome' 'you'))}}
     </div>
   {{/if}}
 </div>
