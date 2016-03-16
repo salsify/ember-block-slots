@@ -9,6 +9,22 @@
 
 Support for multiple yield slots within a component block
 
+Target syntax is:
+
+```
+{{#sample-component}}
+  {{#block-slot 'header' as |x|}}
+    I am the content {{x}}
+  {{/block-slot}}
+  {{#block-slot 'main'}}
+    I am the content
+  {{/block-slot}}
+  {{#block-slot 'footer' as |y z|}}
+    I am the content {{y}} {{z}}
+  {{/block-slot}}
+{{/sample-component}}
+```
+
 Give credit to @runspired
 
 This README outlines the details of collaborating on this Ember addon.
