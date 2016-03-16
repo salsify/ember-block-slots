@@ -1,10 +1,3 @@
-//import Ember from 'ember'
-//import layout from '../templates/components/block-slot'
-//
-//export default Ember.Component.extend({
-//  layout
-//})
-
 import Ember from 'ember';
 import layout from '../templates/components/block-slot'
 
@@ -22,7 +15,6 @@ const component = Component.extend({
 
   // TODO error if slot length is greater than 6
   slot: null,
-  register: null,
 
   shouldDisplay: computed('name', 'slot.name', function() {
 //    return true

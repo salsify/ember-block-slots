@@ -1,4 +1,5 @@
 {{#sample-component as |slot|}}
+  {{!-- currently we need the slot.name and slot.params from the parent yield, not sure if there is a way around that --}}
   {{#block-slot slot 'header' as |info w1 w2|}}
     Block-param {{info.title}} | {{w1}} {{w2}}
   {{/block-slot}}
@@ -6,3 +7,16 @@
     No block-param FOOTER
   {{/block-slot}}
 {{/sample-component}}
+
+{{!--
+Target syntax
+
+{{#sample-component}}
+  {{#block-slot 'header' as |info w1 w2|}}
+    Block-param {{info.title}} | {{w1}} {{w2}}
+  {{/block-slot}}
+  {{#block-slot 'footer'}}
+    No block-param FOOTER
+  {{/block-slot}}
+{{/sample-component}}
+--}}
