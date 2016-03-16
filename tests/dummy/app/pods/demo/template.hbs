@@ -1,10 +1,19 @@
-Chicken and egg - slots need the component to yield 'slot' in order to register, but the component won't yield unless a slot has been registered
-
 {{#sample-component as |slot|}}
   {{#block-slot slot "header" as |info w1 w2|}}
     I am the content {{info.title}} | {{w1}} {{w2}}
   {{/block-slot}}
   {{#block-slot slot "main" as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} {{w2}}
+  {{/block-slot}}
+  {{#block-slot slot "footer" as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} {{w2}}
+  {{/block-slot}}
+{{/sample-component}}
+
+<br>
+
+{{#sample-component as |slot|}}
+  {{#block-slot slot "header" as |info w1 w2|}}
     I am the content {{info.title}} | {{w1}} {{w2}}
   {{/block-slot}}
   {{#block-slot slot "footer" as |info w1 w2|}}

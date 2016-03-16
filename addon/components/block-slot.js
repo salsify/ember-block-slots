@@ -6,6 +6,7 @@
 //})
 
 import Ember from 'ember';
+import layout from '../templates/components/block-slot'
 
 const {
   assert,
@@ -14,6 +15,7 @@ const {
   } = Ember;
 
 const component = Component.extend({
+  layout,
   tagName: '',
 
   name: '',

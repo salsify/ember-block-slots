@@ -1,20 +1,25 @@
-<vbox>
-  {{log slots}}
+{{yield (hash register=(action _registerSlot))}}
+
+<div>
   {{#if slots.header}}
-    <box fit>
+    <div>
       {{yield (hash name='header' register=(action _registerSlot) params=(arr header 'hello' 'world'))}}
-    </box>
+    </div>
   {{/if}}
 
   {{#if slots.main}}
-    <hbox>
+    <div>
       {{yield (hash name='main' register=(action _registerSlot) params=(arr body 'goodnight' 'moon'))}}
-    </hbox>
+    </div>
+  {{else}}
+    <div>
+      I am the default {{body.title}}
+    </div>
   {{/if}}
 
   {{#if slots.footer}}
-    <box fit>
+    <div>
       {{yield (hash name='footer' register=(action _registerSlot) params=(arr footer 'awesome' 'you'))}}
-    </box>
+    </div>
   {{/if}}
-</vbox>
+</div>

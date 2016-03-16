@@ -25,6 +25,8 @@ Target syntax is:
 {{/sample-component}}
 ```
 
+The component needs to yield for each slot, so the conditional in the component won't work, but we still need to handle defaults, which means that if a slot isn't provided we need an option to go back to the component template for the default.  It's like we need to yield *once* to let all the block slots activate, but wait for the block slots to then put content back in (instead of coming from the yield? seems portal-ish)
+
 Give credit to @runspired
 
 This README outlines the details of collaborating on this Ember addon.
