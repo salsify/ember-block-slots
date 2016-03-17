@@ -23,7 +23,7 @@ describeComponent(
       //   {{/yield-slot}}
       // `);
 
-      this.render(hbs`{{yield-slot}}`)
+      this.render(hbs`{{yield-slot 'name'}}`)
       expect(this.$()).to.have.length(1)
     })
   }
