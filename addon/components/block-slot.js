@@ -4,50 +4,49 @@ import layout from '../templates/components/block-slot'
 const {
   assert,
   Component,
-  computed
-  } = Ember;
+  computed,
+  defineProperty
+} = Ember
+
+const blockParamsLength = 10
 
 const component = Component.extend({
   layout,
   tagName: '',
+  name: '', // TODO Necessary?
 
-  name: '',
-
-  // TODO error if slot length is greater than 6
+  // TODO error if slot length is greater than 6, probably can remove this with a helper for the component template
   slot: null,
-
-  shouldDisplay: computed('name', 'slot.name', function() {
-//    return true
-    return this.get('name') === this.get('slot.name');
-  }),
-
-  // TODO Should be able to have unlimited params
-  p1: computed('slot.params.[]', function() {
-    return this.get('slot.params').objectAt(0);
-  }),
-
-  p2: computed('slot.params.[]', function() {
-    return this.get('slot.params').objectAt(1);
-  }),
-
-  p3: computed('slot.params.[]', function() {
-    return this.get('slot.params').objectAt(2);
-  }),
-
-  p4: computed('slot.params.[]', function() {
-    return this.get('slot.params').objectAt(3);
-  }),
-
-  p5: computed('slot.params.[]', function() {
-    return this.get('slot.params').objectAt(4);
-  }),
+  yieldSlot: computed.readOnly('parentView.slot'),
 
   init() {
     this._super();
-    assert("You must include a name for your block", this.name);
+
+    assert('You must include a name for your block', this.name);
+
+    // TODO Keep an eye on this https://github.com/emberjs/ember.js/issues/11170
+    // We're using parentView to avoid passing register on each yield slot,
+    // maybe a helper can handle this?
     this.parentView._registerSlot(this.name)
-//    this.slot.register(this.name);
-  }
+
+    // TODO In order to match the standard block params syntax we need
+    // to be able to pass a spread of positional params to the yield
+    // https://github.com/wycats/handlebars.js/pull/1149
+    //
+    // Until then we either have to use a hash, which changes the block
+    // param syntax for the slots, or a finite number of params passed
+    // directly to the yield, which is what we've opted for since it
+    // maintains the block param syntax
+    Array.from(Array(blockParamsLength).keys()).forEach(index => {
+      defineProperty(this, `p${index}`, computed(function() {
+        return this.get('slot.params').objectAt(index)
+      }))
+    })
+  },
+
+  shouldDisplay: computed('name', 'yieldSlot', function () {
+    return this.get('name') === this.get('yieldSlot');
+  })
 });
 
 component.reopenClass({

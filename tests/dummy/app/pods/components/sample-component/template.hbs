@@ -1,26 +1,21 @@
 {{yield}}
 
 <div>
-  {{!-- I remember having a solution to this in a project where I didn't need to specify the {header: true} ahead of time...  --}}
-  {{#if slots.header}}
-    <div>
-      {{yield (hash name='header' params=(arr header 'hello' 'world'))}}
-    </div>
-  {{/if}}
+  {{#yield-slot 'header'}}
+    {{yield (block-params sampleObject 'SAMPLE')}}
+  {{/yield-slot}}
 
-  {{#if slots.main}}
-    <div>
-      {{yield (hash name='main' params=(arr body 'goodnight' 'moon'))}}
-    </div>
+  {{#yield-slot 'main'}}
+    {{yield (block-params 'goodnight' 'moon')}}
   {{else}}
     <div>
-      Default {{body.title}}
+      Default {{sampleBody}}
     </div>
-  {{/if}}
+  {{/yield-slot}}
 
-  {{#if slots.footer}}
+  {{#yield-slot 'footer'}}
     <div>
-      {{yield (hash name='footer' params=(arr footer 'awesome' 'you'))}}
+      {{yield (block-params 'awesome' 'you')}}
     </div>
-  {{/if}}
+  {{/yield-slot}}
 </div>
