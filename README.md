@@ -9,6 +9,24 @@
 
 Support for multiple yield slots within a component block
 
+Target syntax is:
+
+```
+{{#sample-component}}
+  {{#block-slot 'header' as |x|}}
+    I am the content {{x}}
+  {{/block-slot}}
+  {{#block-slot 'main'}}
+    I am the content
+  {{/block-slot}}
+  {{#block-slot 'footer' as |y z|}}
+    I am the content {{y}} {{z}}
+  {{/block-slot}}
+{{/sample-component}}
+```
+
+The component needs to yield for each slot, so the conditional in the component won't work, but we still need to handle defaults, which means that if a slot isn't provided we need an option to go back to the component template for the default.  It's like we need to yield *once* to let all the block slots activate, but wait for the block slots to then put content back in (instead of coming from the yield? seems portal-ish)
+
 Give credit to @runspired
 
 This README outlines the details of collaborating on this Ember addon.

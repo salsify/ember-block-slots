@@ -1,0 +1,22 @@
+{{#sample-component sampleBody='BODY' as |slot|}}
+  {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
+  {{#block-slot slot 'header' as |sampleObject sampleString|}}
+    Block-param {{sampleObject.data}} | {{sampleString}}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |adj|}}
+    No block-param FOOTER
+  {{/block-slot}}
+{{/sample-component}}
+
+{{!--
+Target syntax
+
+{{#sample-component}}
+  {{#block-slot 'header' as |info w1 w2|}}
+    Block-param {{info.title}} | {{w1}} {{w2}}
+  {{/block-slot}}
+  {{#block-slot 'footer'}}
+    No block-param FOOTER
+  {{/block-slot}}
+{{/sample-component}}
+--}}
