@@ -1,9 +1,9 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
-export function slot(params/*, hash*/) {
+export function blockParams (params/*, hash*/) {
   return {
     params: Ember.A(params)
   }
 }
 
-export default Ember.Helper.helper(slot);
+export default Ember.Helper.helper(blockParams)

@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from 'ember'
 import layout from '../templates/components/block-slot'
 
 const {
@@ -8,21 +8,23 @@ const {
   defineProperty
 } = Ember
 
-const blockParamsLength = 10
+const blockParamsAllowed = 10
 
 const component = Component.extend({
   layout,
   tagName: '',
-  name: '', // TODO Necessary?
 
-  // TODO error if slot length is greater than 6, probably can remove this with a helper for the component template
-  slot: null,
-  yieldSlot: computed.readOnly('parentView.slot'),
+  yieldedSlot: null,
+  yieldedSlotName: computed.readOnly('parentView.slot'),
 
-  init() {
-    this._super();
+  isSlotYield: computed('name', 'yieldedSlotName', function () {
+    return this.get('name') === this.get('yieldedSlotName')
+  }),
 
-    assert('You must include a name for your block', this.name);
+  init () {
+    this._super()
+
+    assert('You must include a name for your block', this.name)
 
     // TODO Keep an eye on this https://github.com/emberjs/ember.js/issues/11170
     // We're using parentView to avoid passing register on each yield slot,
@@ -37,20 +39,16 @@ const component = Component.extend({
     // param syntax for the slots, or a finite number of params passed
     // directly to the yield, which is what we've opted for since it
     // maintains the block param syntax
-    Array.from(Array(blockParamsLength).keys()).forEach(index => {
-      defineProperty(this, `p${index}`, computed(function() {
-        return this.get('slot.params').objectAt(index)
+    Array.from(Array(blockParamsAllowed).keys()).forEach((index) => {
+      defineProperty(this, `p${index}`, computed(function () {
+        return this.get('yieldedSlot.params').objectAt(index)
       }))
     })
-  },
-
-  shouldDisplay: computed('name', 'yieldSlot', function () {
-    return this.get('name') === this.get('yieldSlot');
-  })
-});
+  }
+})
 
 component.reopenClass({
-  positionalParams: ['slot', 'name']
-});
+  positionalParams: ['yieldedSlot', 'name']
+})
 
-export default component;
+export default component

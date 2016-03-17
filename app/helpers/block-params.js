@@ -1,1 +1,1 @@
-export { default, slot } from 'ember-block-slots/helpers/block-params';
+export { default, slot } from 'ember-block-slots/helpers/block-params'

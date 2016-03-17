@@ -1,38 +1,38 @@
-import Ember from 'ember';
+import Ember from 'ember'
 import layout from '../templates/components/yield-slot'
 
 const {
   assert,
   Component,
-  computed,
-  defineProperty
+  computed
 } = Ember
 
 const component = Component.extend({
   layout,
   tagName: '',
-  name: '', // TODO Necessary?
 
-//  // TODO error if slot length is greater than 6, probably can remove this with a helper for the component template
-  slot: null,
+  name: null,
 
-  init() {
+  init () {
     this._super()
 
-    this.set('slots', this.parentView.slots)
+    assert('You must include a name for your slot', this.name)
+
+    this.set('_slots', this.parentView._slots)
   },
 
-  isSlotActive: computed('slots', 'slot', function() {
-    return this.get(`slots.${this.get('slot')}`)
+  isSlotActive: computed('_slots', 'name', function () {
+    return this.get(`_slots.${this.get('name')}`)
   }),
 
-  _registerSlot(name) {
+  // TODO can we find a way to remove this?
+  _registerSlot (name) {
     this.parentView._registerSlot(name)
   }
-});
+})
 
 component.reopenClass({
-  positionalParams: ['slot']
-});
+  positionalParams: ['name']
+})
 
-export default component;
+export default component

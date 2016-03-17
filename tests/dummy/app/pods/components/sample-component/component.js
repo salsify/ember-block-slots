@@ -1,14 +1,14 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
-// TODO ember-prop-types?  Mixin? initializer to re-open Component?
 export default Ember.Component.extend({
   sampleObject: {
     data: 'DATA'
   },
 
-  slots: Ember.Object.create({}),
+  // TODO make _slots and _registerSlot part of a mixin or initializer and use ember-prop-types
+  _slots: Ember.Object.create({}),
 
-  _registerSlot(name) {
-    this.slots.set(name, true);
-  },
-});
+  _registerSlot (name) {
+    this._slots.set(name, true)
+  }
+})

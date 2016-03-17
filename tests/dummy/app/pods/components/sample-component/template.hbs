@@ -1,21 +1,20 @@
 {{yield}}
 
-<div>
-  {{#yield-slot 'header'}}
+{{#yield-slot 'header'}}
+  <div>
     {{yield (block-params sampleObject 'SAMPLE')}}
-  {{/yield-slot}}
+  </div>
+{{/yield-slot}}
 
-  {{#yield-slot 'main'}}
-    {{yield (block-params 'goodnight' 'moon')}}
-  {{else}}
-    <div>
-      Default {{sampleBody}}
-    </div>
-  {{/yield-slot}}
+{{#yield-slot 'main'}}
+  {{yield (block-params 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
 
-  {{#yield-slot 'footer'}}
-    <div>
-      {{yield (block-params 'awesome' 'you')}}
-    </div>
-  {{/yield-slot}}
-</div>
+{{#yield-slot 'footer'}}
+  <div>
+    {{yield (block-params 'awesome' 'you')}}
+  </div>
+{{/yield-slot}}
+
