@@ -1,29 +1,29 @@
 /* jshint expr:true */
-import { expect } from 'chai';
+import { expect } from 'chai'
 import {
   describe,
   it,
   beforeEach
-} from 'mocha';
-import Ember from 'ember';
-import { initialize } from 'ember-block-slots/initializers/component-block-slots';
+} from 'mocha'
+import Ember from 'ember'
+import { initialize } from 'ember-block-slots/initializers/component-block-slots'
 
-describe('ComponentBlockSlotsInitializer', function() {
-  let container, application;
+describe('ComponentBlockSlotsInitializer', function () {
+  let container, application, component
 
-  beforeEach(function() {
-    Ember.run(function() {
-      application = Ember.Application.create();
-      container = application.__container__;
-      application.deferReadiness();
-    });
-  });
+  beforeEach(function () {
+    Ember.run(function () {
+      application = Ember.Application.create()
+      container = application.__container__
+      application.deferReadiness()
+    })
+  })
 
   // Replace this with your real tests.
-  it('works', function() {
-    initialize(container, application);
+  it('works', function () {
+    initialize(container, application)
 
     // you would normally confirm the results of the initializer here
-    expect(true).to.be.ok;
-  });
+    expect(true).to.be.ok
+  })
 });
