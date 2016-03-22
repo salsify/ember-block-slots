@@ -48,7 +48,7 @@ const component = Component.extend({
 })
 
 component.reopenClass({
-  positionalParams: ['yieldedSlot', 'name']
+  positionalParams: [ 'yieldedSlot', 'name' ]
 })
 
 export default component

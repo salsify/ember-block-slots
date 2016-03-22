@@ -32,7 +32,7 @@ const component = Component.extend({
 })
 
 component.reopenClass({
-  positionalParams: ['name']
+  positionalParams: [ 'name' ]
 })
 
 export default component
