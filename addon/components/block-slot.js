@@ -8,19 +8,52 @@ const {
   defineProperty
 } = Ember
 
+/**
+ * The maximum allowed number of block parameters supported
+ *
+ * @memberof module:addon/components/block-slot
+ * @const {Number} blockParamsAllowed
+ * @default 10
+ */
 const blockParamsAllowed = 10
 
+/**
+ * @module
+ * @augments ember/Component
+ */
 const component = Component.extend({
+
+  /** @type {Object} */
   layout,
+
+  /** @type {String} */
   tagName: '',
 
+  /** @type {?Object} */
   yieldedSlot: null,
+
+  /**
+   * The name of the parent component's slot "block section"
+   *
+   * @type {String}
+   */
   yieldedSlotName: computed.readOnly('parentView.slot'),
 
+  /**
+   * Whether this slot should be yielded
+   *
+   * @function
+   * @returns {Boolean}
+   */
   isSlotYield: computed('name', 'yieldedSlotName', function () {
     return this.get('name') === this.get('yieldedSlotName')
   }),
 
+  /**
+   * init event hook
+   *
+   * @returns {undefined}
+   */
   init () {
     this._super()
 
@@ -47,7 +80,15 @@ const component = Component.extend({
   }
 })
 
+/**
+ * @memberof ember/Component#
+ */
 component.reopenClass({
+
+  /**
+   * @type {Array}
+   * @default yieldedSlot, name
+   */
   positionalParams: [ 'yieldedSlot', 'name' ]
 })
 

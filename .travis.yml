@@ -41,6 +41,7 @@ before_script:
 - sleep 3 # give xvfb some time to start
 script:
 - npm run lint
+- ember ember-cli-jsdoc
 - ember try:one $EMBER_TRY_SCENARIO --- ember test
 after_success:
 - .travis/publish-coverage.sh
