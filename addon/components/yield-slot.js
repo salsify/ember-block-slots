@@ -19,7 +19,7 @@ const component = Component.extend({
   /** @type {String} */
   tagName: '',
 
-  /** @type {String} */
+  /** @type {?String} */
   name: null,
 
   /**
