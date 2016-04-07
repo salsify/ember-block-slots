@@ -12,7 +12,7 @@ const {
  * The maximum allowed number of block parameters supported
  *
  * @memberof module:addon/components/block-slot
- * @const {Number} blockParamsAllowed
+ * @constant {Number} blockParamsAllowed
  * @default 10
  */
 const blockParamsAllowed = 10
