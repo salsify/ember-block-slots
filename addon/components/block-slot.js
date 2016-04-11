@@ -37,7 +37,7 @@ const component = Component.extend({
    *
    * @type {String}
    */
-  yieldedSlotName: computed.readOnly('parentView.slot'),
+  yieldedSlotName: computed.readOnly('parentView.name'),
 
   /**
    * Whether this slot should be yielded
