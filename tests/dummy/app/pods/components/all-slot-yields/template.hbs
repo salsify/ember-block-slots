@@ -2,19 +2,18 @@
 
 {{#yield-slot 'header'}}
   <div>
-    {{yield (block-params sampleObject 'SAMPLE')}}
+    {{yield (block-params header 'hello' 'world')}}
   </div>
 {{/yield-slot}}
 
 {{#yield-slot 'main'}}
-  {{yield (block-params 'goodnight' 'moon')}}
+  {{yield (block-params body 'goodnight' 'moon')}}
 {{else}}
   Default {{sampleBody}}
 {{/yield-slot}}
 
 {{#yield-slot 'footer'}}
   <div>
-    {{yield (block-params 'awesome' 'you')}}
+    {{yield (block-params footer 'awesome' 'you')}}
   </div>
 {{/yield-slot}}
-

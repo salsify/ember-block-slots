@@ -1,0 +1,19 @@
+{{yield}}
+
+{{#yield-slot 'header'}}
+  <div>
+    {{yield (block-params header 'hello' 'world')}}
+  </div>
+{{/yield-slot}}
+
+{{#yield-slot 'main'}}
+  {{yield (block-params body 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
+
+{{#yield-slot 'footer'}}
+  <div>
+    {{yield (block-params footer 'awesome' 'you')}}
+  </div>
+{{/yield-slot}}

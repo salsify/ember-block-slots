@@ -32,6 +32,7 @@
     "ember-cli-jsdoc": "~1.4.0",
     "ember-cli-mocha": "0.10.1",
     "ember-cli-release": "0.2.8",
+    "ember-cli-sass": "^5.3.1",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
@@ -42,7 +43,8 @@
     "ember-try": "^0.2.0",
     "eslint": "2.2.0",
     "eslint-config-frost-standard": "^1.0.0",
-    "loader.js": "^4.0.0"
+    "loader.js": "^4.0.0",
+    "markdown-code-highlighting": "0.0.6"
   },
   "keywords": [
     "ember-addon"
