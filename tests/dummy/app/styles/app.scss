@@ -49,58 +49,6 @@ hr {
   padding: 10px;
 }
 
-.dummy-body.text-input.field {
-  .example .snippet {
-    width: 305px;
-    margin: 15px 0 10px 0;
-  }
-}
-
-.dummy-body.textarea {
-  .example .snippet {
-    width: 305px;
-    margin: 15px 0 10px 0;
-  }
-}
-
-.dummy-body.password {
-  .example .snippet {
-    width: 305px;
-    margin: 15px 0 10px 0;
-  }
-}
-
-.dummy-body.checkbox {
-  .example .snippet {
-    width: 310px;
-    margin: 15px 0 10px 0;
-  }
-}
-
-.dummy-body.button {
-  .example .snippet {
-    width: 320px;
-    margin: 15px 0 10px 0;
-  }
-}
-
-.dummy-body.link {
-  .example .snippet {
-    width: 300px;
-    margin: 15px 0 10px 0;
-  }
-  .extra-padding {
-    padding-bottom: 20px;
-  }
-}
-
-.dummy-body.select {
-  .example .snippet {
-    width: 330px;
-    margin: 15px 0 10px 0;
-  }
-}
-
 .dummy-body .title {
   padding-bottom: 10px;
   padding-top: 10px;
@@ -114,7 +62,6 @@ hr {
   font-family: $frost-font-family;
   font-size: $frost-font-m;
 }
-
 
 .dummy-body .section {
   display: flex;
