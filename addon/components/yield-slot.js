@@ -29,7 +29,15 @@ const component = Component.extend({
    */
   init () {
     this._super()
+    this.componentInit()
+  },
 
+  /**
+   * Verifies a name property is passed in and sets up the initial state
+   *
+   * @returns {undefined}
+   */
+  componentInit () {
     assert('You must include a name for your slot', this.name)
 
     this.set('_slots', this.parentView._slots)

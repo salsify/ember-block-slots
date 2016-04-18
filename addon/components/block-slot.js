@@ -29,6 +29,9 @@ const component = Component.extend({
   /** @type {String} */
   tagName: '',
 
+  /** @type {String} */
+  name: null,
+
   /** @type {?Object} */
   yieldedSlot: null,
 
@@ -56,7 +59,15 @@ const component = Component.extend({
    */
   init () {
     this._super()
+    this.componentInit()
+  },
 
+  /**
+   * Verifies a name property is passed in and sets up the initial state
+   *
+   * @returns {undefined}
+   */
+  componentInit () {
     assert('You must include a name for your block', this.name)
 
     // TODO Keep an eye on this https://github.com/emberjs/ember.js/issues/11170
