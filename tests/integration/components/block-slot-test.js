@@ -9,7 +9,7 @@ import hbs from 'htmlbars-inline-precompile'
 
 const slotObject = Ember.Object.create({
   params: Ember.A(
-    [ '0', '1', '2', '3', '4','5', '6', '7', '8', '9' ]
+    [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
   )
 })
 
@@ -50,6 +50,4 @@ describeComponent(
       ).to.have.length(0)
     })
   }
-
-  //Error when name not sent
 )
