@@ -15,7 +15,7 @@ content inside the block-slot.</p>
     <div class='example'>
       <div class='title'>Rendered component</div>
       <div class='demo'>
-        {{#default-slot-yield sampleBody='BODY' as |slot|}}
+        {{#sample-component sampleBody='BODY' as |slot|}}
           {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
           {{#block-slot slot 'header' as |info w1 w2|}}
             I am the content {{info.title}} | {{w1}} | {{w2}}
@@ -23,7 +23,7 @@ content inside the block-slot.</p>
           {{#block-slot slot 'footer' as |info w1 w2|}}
             I am the content {{info.title}} | {{w1}} | {{w2}}
           {{/block-slot}}
-        {{/default-slot-yield}}
+        {{/sample-component}}
       </div>
       <div class='title'>Controller</div>
       <div class='snippet'>
@@ -38,20 +38,20 @@ footer: { title: 'FOOTER' }
       <div class='title'>Demo template.hbs</div>
       <div class='snippet'>
         {{format-markdown "```htmlbars
-{{#default-slot-yield sampleBody='BODY' as |slot|}}
+{{#sample-component sampleBody='BODY' as |slot|}}
   {{#block-slot slot 'header' as |info w1 w2|}}
     I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
   {{#block-slot slot 'footer' as |info w1 w2|}}
     I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
-{{/default-slot-yield}}
+{{/sample-component}}
 ```"}}
       </div>
     </div>
 
     <div class='example'>
-      <div class='title'>default-slot-yield.hbs</div>
+      <div class='title'>sample-component.hbs</div>
       <div class='snippet'>
         {{format-markdown "```htmlbars
 {{yield}}
@@ -83,7 +83,7 @@ footer: { title: 'FOOTER' }
     <div class='example'>
       <div class='title'>Rendered component</div>
       <div class='demo'>
-        {{#all-slot-yields as |slot|}}
+        {{#sample-component as |slot|}}
           {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
           {{#block-slot slot 'header' as | info w1 w2|}}
             I am the content {{info.title}} | {{w1}} | {{w2}}
@@ -94,7 +94,7 @@ footer: { title: 'FOOTER' }
           {{#block-slot slot 'footer' as |info w1 w2|}}
             I am the content {{info.title}} | {{w1}} | {{w2}}
           {{/block-slot}}
-        {{/all-slot-yields}}
+        {{/sample-component}}
       </div>
       <div class='title'>Controller</div>
       <div class='snippet'>
@@ -107,7 +107,7 @@ footer: { title: 'FOOTER' }
       <div class='title'>Demo template.hbs</div>
         <div class='snippet'>
         {{format-markdown "```htmlbars
-{{#all-slot-yields as |slot|}}
+{{#sample-component as |slot|}}
   {{#block-slot slot 'header' as | info w1 w2|}}
     I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
@@ -117,13 +117,13 @@ footer: { title: 'FOOTER' }
   {{#block-slot slot 'footer' as |info w1 w2|}}
     I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
-{{/all-slot-yields}}
+{{/sample-component}}
 ```"}}
       </div>
     </div>
 
     <div class='example'>
-      <div class='title'>all-slot-yields.hbs</div>
+      <div class='title'>sample-component.hbs</div>
       <div class='snippet'>
         {{format-markdown "```htmlbars
 {{yield}}
