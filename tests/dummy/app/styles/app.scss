@@ -1,7 +1,5 @@
-@import 'colors';
-@import 'normalize';
-@import 'flex';
-@import 'typography';
+@import 'frost-app';
+@import 'frost-theme';
 
 .dummy-body {
   padding: 0 10px;
@@ -84,3 +82,5 @@ hr {
     }
   }
 }
+
+
