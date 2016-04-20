@@ -6,6 +6,7 @@ import {
 } from 'ember-mocha'
 import Ember from 'ember'
 import sinon from 'sinon'
+import _ from 'lodash'
 
 describeComponent(
   'block-slot',
@@ -161,55 +162,12 @@ describeComponent(
         parentView: parentViewObject
       })
 
-      expect(
-        component.get('p0'),
-        '"p0" computed property gets set'
-      ).to.eql('0')
-
-      expect(
-        component.get('p1'),
-        '"p1" computed property gets set'
-      ).to.eql('1')
-
-      expect(
-        component.get('p2'),
-        '"p2" computed property gets set'
-      ).to.eql('2')
-
-      expect(
-        component.get('p3'),
-        '"p3" computed property gets set'
-      ).to.eql('3')
-
-      expect(
-        component.get('p4'),
-        '"p4" computed property gets set'
-      ).to.eql('4')
-
-      expect(
-        component.get('p5'),
-        '"p5" computed property gets set'
-      ).to.eql('5')
-
-      expect(
-        component.get('p6'),
-        '"p6" computed property gets set'
-      ).to.eql('6')
-
-      expect(
-        component.get('p7'),
-        '"p7" computed property gets set'
-      ).to.eql('7')
-
-      expect(
-        component.get('p8'),
-        '"p8" computed property gets set'
-      ).to.eql('8')
-
-      expect(
-        component.get('p9'),
-        '"p9" computed property gets set'
-      ).to.eql('9')
+      _.range(10).forEach((number) => {
+        expect(
+          component.get(`p${number}`),
+          `"p${number}" computed property gets set`
+        ).to.eql(`${number}`)
+      })
 
       expect(
         component.get('p10'),
@@ -237,20 +195,12 @@ describeComponent(
         parentView: parentViewObject
       })
 
-      expect(
-        component.get('p0'),
-        '"p0" computed property gets set'
-      ).to.eql('0')
-
-      expect(
-        component.get('p1'),
-        '"p1" computed property gets set'
-      ).to.eql('1')
-
-      expect(
-        component.get('p2'),
-        '"p2" computed property gets set'
-      ).to.eql('2')
+      _.range(3).forEach((number) => {
+        expect(
+          component.get(`p${number}`),
+          `"p${number}" computed property gets set`
+        ).to.eql(`${number}`)
+      })
 
       expect(
         component.get('p3'),
