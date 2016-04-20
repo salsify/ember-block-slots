@@ -1,6 +1,6 @@
 {
   "name": "ember-block-slots",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Support for targeted yield slots within a component block",
   "directories": {
     "doc": "doc",
