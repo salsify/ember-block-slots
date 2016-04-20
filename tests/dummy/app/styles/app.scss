@@ -1,15 +1,13 @@
-@import 'colors';
-@import 'normalize';
-@import 'flex';
-@import 'typography';
+@import 'frost-app';
+@import 'frost-theme';
 
 .dummy-body {
   padding: 0 10px;
 }
 
 p {
-    padding: 10px;
-    max-width: 980px;
+  padding: 10px;
+  max-width: 980px;
 }
 
 pre {
@@ -84,3 +82,5 @@ hr {
     }
   }
 }
+
+
