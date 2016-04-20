@@ -1,10 +1,17 @@
 /* jshint expr:true */
-// import { expect } from 'chai'
+import Ember from 'ember'
+import { expect } from 'chai'
 import {
-  describeComponent
-//  it
+  describeComponent,
+  it
 } from 'ember-mocha'
-// import hbs from 'htmlbars-inline-precompile'
+import hbs from 'htmlbars-inline-precompile'
+
+const slotObject = Ember.Object.create({
+  params: Ember.A(
+    [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+  )
+})
 
 describeComponent(
   'block-slot',
@@ -13,20 +20,34 @@ describeComponent(
     integration: true
   },
   function () {
-//    it('renders', function () {
-//      // Set any properties with this.set('myProperty', 'value');
-//      // Handle any actions with this.on('myAction', function(val) { ... });
-//      // Template block usage:
-//      // this.render(hbs`
-//      //   {{#block-slot}}
-//      //     template content
-//      //   {{/block-slot}}
-//      // `);
-//
-//      this.render(hbs`
-//        {{block-slot slot 'name'}}
-//      `)
-//      expect(this.$()).to.have.length(1)
-//    })
+    it('All ten slots yield when "isSlotYield" is true', function () {
+      this.set('slot', slotObject)
+
+      this.render(hbs`
+        {{#block-slot slot 'name' isSlotYield=true as |n0 n1 n2 n3 n4 n5 n6 n7 n8 n9|}}
+          I am the numbers {{n0}} {{n1}} {{n2}} {{n3}} {{n4}} {{n5}} {{n6}} {{n7}} {{n8}} {{n9}}
+        {{/block-slot}}
+      `)
+
+      expect(
+        this.$().text().trim(),
+        'All 10 slots are yielded'
+      ).to.eql('I am the numbers 0 1 2 3 4 5 6 7 8 9')
+    })
+
+    it('No slots yield when "isSlotYield" is false', function () {
+      this.set('slot', slotObject)
+
+      this.render(hbs`
+        {{#block-slot slot 'name' isSlotYield=false as |n0 n1 n2 n3 n4 n5 n6 n7 n8 n9|}}
+          I am the numbers {{n0}} {{n1}} {{n2}} {{n3}} {{n4}} {{n5}} {{n6}} {{n7}} {{n8}} {{n9}}
+        {{/block-slot}}
+      `)
+
+      expect(
+        this.$('.frost-select .selected'),
+        'No slots are yielded'
+      ).to.have.length(0)
+    })
   }
 )

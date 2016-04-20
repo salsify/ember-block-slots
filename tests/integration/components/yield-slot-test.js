@@ -13,18 +13,34 @@ describeComponent(
     integration: true
   },
   function () {
-    it('renders', function () {
-      // Set any properties with this.set('myProperty', 'value');
-      // Handle any actions with this.on('myAction', function(val) { ... });
-      // Template block usage:
-      // this.render(hbs`
-      //   {{#yield-slot}}
-      //     template content
-      //   {{/yield-slot}}
-      // `);
+    it('Main slot yields', function () {
+      this.render(hbs`
+        {{#yield-slot 'header' isSlotActive=true}}
+          Some yielded text
+        {{else}}
+          Default yielded text
+        {{/yield-slot}}
+      `)
 
-      this.render(hbs`{{yield-slot 'name'}}`)
-      expect(this.$()).to.have.length(1)
+      expect(
+        this.$().text().trim(),
+        'Text shows in the main yielded'
+      ).to.eql('Some yielded text')
+    })
+
+    it('Inverse slot yields', function () {
+      this.render(hbs`
+        {{#yield-slot 'header' isSlotActive=false}}
+          Some yielded text
+        {{else}}
+          Default yielded text
+        {{/yield-slot}}
+      `)
+
+      expect(
+        this.$().text().trim(),
+        'Text shows in the default yield'
+      ).to.eql('Default yielded text')
     })
   }
 )
