@@ -1,7 +1,7 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  sampleObject: {
-    data: 'DATA'
-  }
+  header: { title: 'HEADER' },
+  body: { title: 'BODY' },
+  footer: { title: 'FOOTER' }
 })

@@ -1,12 +1,155 @@
+
+<h1 class="section-header">block-slot: Named yields</h1>
+
+<p>The block-slots functionality is provided by a nested component implementation. The values that
+will be yielded are set in the parent component's template for each block and that block is given a
+name. That name will match with the block-slot component's name and can then be used for the yielded
+content inside the block-slot.</p>
+
+<div class='dummy-body'>
+
+  <div class="section-title">Example 1: Named yields with a default main block</div>
+  <hr>
+  <div class='section'>
+
+    <div class='example'>
+      <div class='title'>Rendered component</div>
+      <div class='demo'>
+        {{#sample-component sampleBody='BODY' as |slot|}}
+          {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
+          {{#block-slot slot 'header' as |info w1 w2|}}
+            I am the content {{info.title}} | {{w1}} | {{w2}}
+          {{/block-slot}}
+          {{#block-slot slot 'footer' as |info w1 w2|}}
+            I am the content {{info.title}} | {{w1}} | {{w2}}
+          {{/block-slot}}
+        {{/sample-component}}
+      </div>
+      <div class='title'>Controller</div>
+      <div class='snippet'>
+        {{format-markdown "```json
+header: { title: 'HEADER' },
+body: { title: 'BODY' },
+footer: { title: 'FOOTER' }
+
+```"}}
+      </div>
+
+      <div class='title'>Demo template.hbs</div>
+      <div class='snippet'>
+        {{format-markdown "```htmlbars
 {{#sample-component sampleBody='BODY' as |slot|}}
-  {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
-  {{#block-slot slot 'header' as |sampleObject sampleString|}}
-    Block-param {{sampleObject.data}} | {{sampleString}}
+  {{#block-slot slot 'header' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
-  {{#block-slot slot 'footer' as |adj|}}
-    No block-param FOOTER
+  {{#block-slot slot 'footer' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
   {{/block-slot}}
 {{/sample-component}}
+```"}}
+      </div>
+    </div>
+
+    <div class='example'>
+      <div class='title'>sample-component.hbs</div>
+      <div class='snippet'>
+        {{format-markdown "```htmlbars
+{{yield}}
+{{#yield-slot 'header'}}
+  <div>
+    {{yield (block-params header 'hello' 'world')}}
+  </div>
+{{/yield-slot}}
+
+{{#yield-slot 'main'}}
+  {{yield (block-params body 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
+
+{{#yield-slot 'footer'}}
+  <div>
+    {{yield (block-params footer 'awesome' 'you')}}
+  </div>
+{{/yield-slot}}
+```"}}
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Example 2: Named yields all blocks yield</div>
+  <hr>
+  <div class='section'>
+    <div class='example'>
+      <div class='title'>Rendered component</div>
+      <div class='demo'>
+        {{#sample-component as |slot|}}
+          {{!-- TODO currently we need the slot.params from the parent yield, not sure if there is a way around that --}}
+          {{#block-slot slot 'header' as | info w1 w2|}}
+            I am the content {{info.title}} | {{w1}} | {{w2}}
+          {{/block-slot}}
+          {{#block-slot slot 'main' as |info w1 w2|}}
+            I am the content {{info.title}} | {{w1}} | {{w2}}
+          {{/block-slot}}
+          {{#block-slot slot 'footer' as |info w1 w2|}}
+            I am the content {{info.title}} | {{w1}} | {{w2}}
+          {{/block-slot}}
+        {{/sample-component}}
+      </div>
+      <div class='title'>Controller</div>
+      <div class='snippet'>
+        {{format-markdown "```json
+header: { title: 'HEADER' },
+body: { title: 'BODY' },
+footer: { title: 'FOOTER' }
+```"}}
+      </div>
+      <div class='title'>Demo template.hbs</div>
+        <div class='snippet'>
+        {{format-markdown "```htmlbars
+{{#sample-component as |slot|}}
+  {{#block-slot slot 'header' as | info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+  {{#block-slot slot 'main' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+{{/sample-component}}
+```"}}
+      </div>
+    </div>
+
+    <div class='example'>
+      <div class='title'>sample-component.hbs</div>
+      <div class='snippet'>
+        {{format-markdown "```htmlbars
+{{yield}}
+{{#yield-slot 'header'}}
+  <div>
+    {{yield (block-params header 'hello' 'world')}}
+  </div>
+{{/yield-slot}}
+
+{{#yield-slot 'main'}}
+  {{yield (block-params body 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
+
+{{#yield-slot 'footer'}}
+  <div>
+    {{yield (block-params footer 'awesome' 'you')}}
+  </div>
+{{/yield-slot}}
+```"}}
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {{!--
 Target syntax
