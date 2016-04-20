@@ -15,6 +15,7 @@ addons:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+  firefox: "latest"
 env:
   matrix:
   - EMBER_TRY_SCENARIO=default
@@ -37,6 +38,7 @@ install:
 - bower install
 before_script:
 - "export DISPLAY=:99.0"
+- "echo 'Using firefox version `firefox --version`'"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
 script:
