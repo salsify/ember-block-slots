@@ -13,11 +13,6 @@ describeComponent(
     integration: true
   },
   function () {
-    it('renders', function () {
-      this.render(hbs`{{yield-slot 'name'}}`)
-      expect(this.$()).to.have.length(1)
-    })
-
     it('Main slot yields', function () {
       this.render(hbs`
         {{#yield-slot 'header' isSlotActive=true}}
