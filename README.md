@@ -15,7 +15,7 @@
 
 [![Dependencies][dep-img]][dep-url] [![Dev Dependencies][devdep-img]][devdep-url]
 
-Support for multiple yield slots within a component block
+Support for multiple yield slots, including default slots, within a component block
 
 Target syntax is:
 
@@ -39,24 +39,100 @@ Give credit to @runspired
 
 This README outlines the details of collaborating on this Ember addon.
 
-## Installation
+## Demo
+
+**[http://ciena-blueplanet.github.io/ember-block](http://ciena-blueplanet.github.io/ember-block-slots)**
+
+## Using this addon in your application
+
+### Installation
+
+    ember install ember-block-slots
+
+### Usage
+
+In the component template, place a "named" yield-slot block with what will be passed though for that named slot.
+
+
+```
+sammple-component.hbs
+
+{{yield}}
+{{#yield-slot 'header'}}
+  <div>
+    {{yield (block-params header 'hello' 'world')}}
+  </div>
+{{/yield-slot}}
+
+{{#yield-slot 'main'}}
+  {{yield (block-params body 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
+
+{{#yield-slot 'footer'}}
+  <div>
+    {{yield (block-params footer 'awesome' 'you')}}
+  </div>
+{{/yield-slot}}
+```
+
+Then, in your parent template place your component with the block-slots inside, matching them by name to the yield-slot. Within each block-slot, place the content that you want to yield for that block.
+
+```
+parent-template.hbs
+
+{{#sample-component sampleBody='BODY' as |slot|}}
+  {{#block-slot slot 'header' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+{{/sample-component}}
+```
+
+Given this data:
+
+```
+header: { title: 'HEADER' },
+body: { title: 'BODY' },
+footer: { title: 'FOOTER' }
+```
+
+The rendered output is:
+
+```
+I am the content HEADER | hello | world
+Default BODY
+I am the content FOOTER | awesome | you
+```
+
+## Development Environment
+
+### Installation
 
 * `git clone` this repository
 * `npm install`
 * `bower install`
 
-## Running
+### Running
 
 * `ember server`
 * Visit your app at http://localhost:4200.
 
-## Running Tests
+### Documentation
+
+* `ember ember-cli-jsoc` or `npm run docs` (shortcut setup in this repo)
+* Visit *http://localhost:4200/docs*
+
+### Running Tests
 
 * `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
-## Building
+### Building
 
 * `ember build`
 
