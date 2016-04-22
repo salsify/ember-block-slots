@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>ember-block-slots <br /> <a href="https://travis-ci.org/ciena-blueplanet/ember-block-slots"><img src="https://img.shields.io/travis/ciena-blueplanet/ember-block-slots.svg" alt="Travis" title="Travis CI Build Status"></a> <a href="https://coveralls.io/github/ciena-blueplanet/ember-block-slots"><img src="https://img.shields.io/coveralls/ciena-blueplanet/ember-block-slots.svg" alt="Coveralls" title="Coveralls Code Coverage"></a> <a href="https://www.npmjs.com/package/ember-block-slots"><img src="https://img.shields.io/npm/v/ember-block-slots.svg" alt="NPM" title="NPM Version"></a> <a href="https://emberobserver.com/addons/ember-block-slots"><img src="https://emberobserver.com/badges/ember-block-slots.svg" alt="Ember Observer"></a></h1><p><a href="https://david-dm.org/ciena-blueplanet/ember-block-slots"><img src="https://img.shields.io/david/ciena-blueplanet/ember-block-slots.svg" alt="Dependencies"></a> <a href="https://david-dm.org/ciena-blueplanet/ember-block-slots#info=devDependencies"><img src="https://img.shields.io/david/dev/ciena-blueplanet/ember-block-slots.svg" alt="Dev Dependencies"></a></p>
+<p>Support for multiple yield slots, including default slots, within a component block</p>
+<p>Target syntax is:</p>
+<pre class="prettyprint source"><code>{{#sample-component}}
+  {{#block-slot 'header' as |x|}}
+    I am the content {{x}}
+  {{/block-slot}}
+  {{#block-slot 'main'}}
+    I am the content
+  {{/block-slot}}
+  {{#block-slot 'footer' as |y z|}}
+    I am the content {{y}} {{z}}
+  {{/block-slot}}
+{{/sample-component}}</code></pre><p>The component needs to yield for each slot, so the conditional in the component won't work, but we still need to handle defaults, which means that if a slot isn't provided we need an option to go back to the component template for the default.  It's like we need to yield <em>once</em> to let all the block slots activate, but wait for the block slots to then put content back in (instead of coming from the yield? seems portal-ish)</p>
+<p>Give credit to @runspired</p>
+<p>This README outlines the details of collaborating on this Ember addon.</p>
+<h2>Demo</h2><p><strong><a href="http://ciena-blueplanet.github.io/ember-block-slots">http://ciena-blueplanet.github.io/ember-block</a></strong></p>
+<h2>Using this addon in your application</h2><h3>Installation</h3><pre class="prettyprint source"><code>ember install ember-block-slots</code></pre><h3>Usage</h3><p>In the component template, place a &quot;named&quot; yield-slot block with what will be passed though for that named slot.</p>
+<pre class="prettyprint source"><code>sammple-component.hbs
+
+{{yield}}
+{{#yield-slot 'header'}}
+  &lt;div>
+    {{yield (block-params header 'hello' 'world')}}
+  &lt;/div>
+{{/yield-slot}}
+
+{{#yield-slot 'main'}}
+  {{yield (block-params body 'goodnight' 'moon')}}
+{{else}}
+  Default {{sampleBody}}
+{{/yield-slot}}
+
+{{#yield-slot 'footer'}}
+  &lt;div>
+    {{yield (block-params footer 'awesome' 'you')}}
+  &lt;/div>
+{{/yield-slot}}</code></pre><p>Then, in your parent template place your component with the block-slots inside, matching them by name to the yield-slot. Within each block-slot, place the content that you want to yield for that block.</p>
+<pre class="prettyprint source"><code>parent-template.hbs
+
+{{#sample-component sampleBody='BODY' as |slot|}}
+  {{#block-slot slot 'header' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+  {{#block-slot slot 'footer' as |info w1 w2|}}
+    I am the content {{info.title}} | {{w1}} | {{w2}}
+  {{/block-slot}}
+{{/sample-component}}</code></pre><p>Given this data:</p>
+<pre class="prettyprint source"><code>header: { title: 'HEADER' },
+body: { title: 'BODY' },
+footer: { title: 'FOOTER' }</code></pre><p>The rendered output is:</p>
+<pre class="prettyprint source"><code>I am the content HEADER | hello | world
+Default BODY
+I am the content FOOTER | awesome | you</code></pre><h2>Development Environment</h2><h3>Installation</h3><ul>
+<li><code>git clone</code> this repository</li>
+<li><code>npm install</code></li>
+<li><code>bower install</code></li>
+</ul>
+<h3>Running</h3><ul>
+<li><code>ember server</code></li>
+<li>Visit your app at http://localhost:4200.</li>
+</ul>
+<h3>Documentation</h3><ul>
+<li><code>ember ember-cli-jsoc</code> or <code>npm run docs</code> (shortcut setup in this repo)</li>
+<li>Visit <em>http://localhost:4200/docs</em></li>
+</ul>
+<h3>Running Tests</h3><ul>
+<li><code>npm test</code> (Runs <code>ember try:testall</code> to test your addon against multiple Ember versions)</li>
+<li><code>ember test</code></li>
+<li><code>ember test --server</code></li>
+</ul>
+<h3>Building</h3><ul>
+<li><code>ember build</code></li>
+</ul>
+<p>For more information on using ember-cli, visit <a href="http://www.ember-cli.com/">http://www.ember-cli.com/</a>.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-addon_components_block-slot.html">addon/components/block-slot</a></li><li><a href="module-addon_components_yield-slot.html">addon/components/yield-slot</a></li><li><a href="module-addon_extensions_component-block-slots.html">addon/extensions/component-block-slots</a></li><li><a href="module-addon_initializers_component-block-slots.html">addon/initializers/component-block-slots</a></li></ul><h3>Global</h3><ul><li><a href="global.html#blockParams">blockParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Fri Apr 22 2016 21:03:48 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
