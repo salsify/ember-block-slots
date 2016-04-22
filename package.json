@@ -2,6 +2,7 @@
   "name": "ember-block-slots",
   "version": "0.7.1",
   "description": "Support for targeted yield slots within a component block",
+  "homepage": "http://ciena-blueplanet.github.io/ember-block-slots",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -13,6 +14,7 @@
     "lint": "eslint *.js addon app config tests",
     "test": "ember ember-cli-jsdoc && npm run lint && ember test"
   },
+  "bugs": "https://github.com/ciena-blueplanet/ember-block-slots/issues",
   "repository": "git@github.com:ciena-blueplanet/ember-block-slots.git",
   "engines": {
     "node": ">= 5.0.0"
@@ -52,13 +54,20 @@
     "markdown-code-highlighting": "0.0.6"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "named yields",
+    "slots",
+    "ember",
+    "addon",
+    "cli",
+    "components"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.5",
     "ember-cli-htmlbars": "^1.0.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "http://ciena-blueplanet.github.io/ember-block-slots/"
   }
 }
