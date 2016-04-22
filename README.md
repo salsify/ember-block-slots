@@ -4,8 +4,16 @@
 [cov-url]: https://coveralls.io/github/ciena-blueplanet/ember-block-slots
 [npm-img]: https://img.shields.io/npm/v/ember-block-slots.svg "NPM Version"
 [npm-url]: https://www.npmjs.com/package/ember-block-slots
+[dep-img]: https://img.shields.io/david/ciena-blueplanet/ember-block-slots.svg
+[dep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots
+[devdep-img]: https://img.shields.io/david/dev/ciena-blueplanet/ember-block-slots.svg
+[devdep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots#info=devDependencies
+[eo-img]: https://emberobserver.com/badges/ember-block-slots.svg
+[eo-url]: https://emberobserver.com/addons/ember-block-slots
 
-# ember-block-slots <br /> [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url]
+# ember-block-slots <br /> [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url] [![Ember Observer][eo-img]][eo-url]
+
+[![Dependencies][dep-img]][dep-url] [![Dev Dependencies][devdep-img]][devdep-url]
 
 Support for multiple yield slots within a component block
 
