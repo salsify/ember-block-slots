@@ -4,14 +4,21 @@
 [cov-url]: https://coveralls.io/github/ciena-blueplanet/ember-block-slots
 [npm-img]: https://img.shields.io/npm/v/ember-block-slots.svg "NPM Version"
 [npm-url]: https://www.npmjs.com/package/ember-block-slots
+[lic-img]: https://img.shields.io/npm/l/ember-block-slots.svg
+[lic-url]: LICENSE.md
 [dep-img]: https://img.shields.io/david/ciena-blueplanet/ember-block-slots.svg
 [dep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots
 [devdep-img]: https://img.shields.io/david/dev/ciena-blueplanet/ember-block-slots.svg
 [devdep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots#info=devDependencies
 [eo-img]: https://emberobserver.com/badges/ember-block-slots.svg
 [eo-url]: https://emberobserver.com/addons/ember-block-slots
+[embercli-url]: https://embadge.io/v1/ciena-blueplanet/ember-block-slots/master/ember-cli.svg
 
-# ember-block-slots <br /> [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![NPM][npm-img]][npm-url] [![Ember Observer][eo-img]][eo-url]
+# ember-block-slots <br />
+
+[![NPM][npm-img]][npm-url] ![Ember CLI version][embercli-url] [![License][lic-img]][lic-url]
+
+[![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![Ember Observer][eo-img]][eo-url]
 
 [![Dependencies][dep-img]][dep-url] [![Dev Dependencies][devdep-img]][devdep-url]
 
@@ -136,4 +143,8 @@ I am the content FOOTER | awesome | you
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
+
+## Versioning
+
+Employs [Semantic Versioning 2.0.0](http://semver.org/)
