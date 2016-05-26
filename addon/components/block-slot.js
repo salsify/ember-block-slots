@@ -4,18 +4,8 @@ import layout from '../templates/components/block-slot'
 const {
   assert,
   Component,
-  computed,
-  defineProperty
+  computed
 } = Ember
-
-/**
- * The maximum allowed number of block parameters supported
- *
- * @memberof module:addon/components/block-slot
- * @constant {Number} blockParamsAllowed
- * @default 10
- */
-const blockParamsAllowed = 10
 
 /**
  * @module
@@ -52,6 +42,115 @@ const component = Component.extend({
     return this.get('name') === this.get('yieldedSlotName')
   }),
 
+  // TODO In order to match the standard block params syntax we need
+  // to be able to pass a spread of positional params to the yield
+  // https://github.com/wycats/handlebars.js/pull/1149
+  //
+  // Until then we either have to use a hash, which changes the block
+  // param syntax for the slots, or a finite number of params passed
+  // directly to the yield, which is what we've opted for since it
+  // maintains the block param syntax
+
+  /**
+   * The first parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p0: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(0)
+  }),
+
+  /**
+   * The second parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p1: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(1)
+  }),
+
+  /**
+   * The third parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p2: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(2)
+  }),
+
+  /**
+   * The fourth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p3: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(3)
+  }),
+
+  /**
+   * The fifth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p4: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(4)
+  }),
+
+  /**
+   * The sixth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p5: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(5)
+  }),
+
+  /**
+   * The seventh parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p6: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(6)
+  }),
+
+  /**
+   * The eighth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p7: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(7)
+  }),
+
+  /**
+   * The ninth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p8: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(8)
+  }),
+
+  /**
+   * The tenth parameter of the yield
+   *
+   * @function
+   * @returns {Array|Boolean|Object|String}
+   */
+  p9: computed('yieldedSlot.params.[]', function () {
+    return this.get('yieldedSlot.params').objectAt(9)
+  }),
+
   /**
    * init event hook
    *
@@ -74,20 +173,6 @@ const component = Component.extend({
     // We're using parentView to avoid passing register on each yield slot,
     // maybe a helper can handle this?
     this.parentView._registerSlot(this.name)
-
-    // TODO In order to match the standard block params syntax we need
-    // to be able to pass a spread of positional params to the yield
-    // https://github.com/wycats/handlebars.js/pull/1149
-    //
-    // Until then we either have to use a hash, which changes the block
-    // param syntax for the slots, or a finite number of params passed
-    // directly to the yield, which is what we've opted for since it
-    // maintains the block param syntax
-    Array.from(Array(blockParamsAllowed).keys()).forEach((index) => {
-      defineProperty(this, `p${index}`, computed(function () {
-        return this.get('yieldedSlot.params').objectAt(index)
-      }))
-    })
   }
 })
 
