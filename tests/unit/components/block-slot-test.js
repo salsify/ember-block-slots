@@ -142,7 +142,7 @@ describeComponent(
       ).to.be.false
     })
 
-    it('Only 10 computed properties can be dynamically generated', function () {
+    it('Only 10 computed properties are generated', function () {
       const spy = sinon.spy()
 
       const slotObject = Ember.Object.create({
@@ -172,39 +172,6 @@ describeComponent(
       expect(
         component.get('p10'),
         '"p10" computed property is not created'
-      ).to.be.undefined
-    })
-
-    it('Correct number of computed properties are dynamically generated', function () {
-      const spy = sinon.spy()
-
-      const slotObject = Ember.Object.create({
-        params: Ember.A(
-          [ '0', '1', '2' ]
-        )
-      })
-
-      const parentViewObject = Ember.Object.create({
-        name: 'testName',
-        _registerSlot: spy
-      })
-
-      const component = this.subject({
-        name: 'testName',
-        yieldedSlot: slotObject,
-        parentView: parentViewObject
-      })
-
-      _.range(3).forEach((number) => {
-        expect(
-          component.get(`p${number}`),
-          `"p${number}" computed property gets set`
-        ).to.eql(`${number}`)
-      })
-
-      expect(
-        component.get('p3'),
-        '"p3" computed property is not created'
       ).to.be.undefined
     })
   }
