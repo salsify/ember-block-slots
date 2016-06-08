@@ -157,7 +157,7 @@ const component = Component.extend({
    * @returns {undefined}
    */
   init () {
-    this._super()
+    this._super(...arguments)
     this.componentInit()
   },
 
