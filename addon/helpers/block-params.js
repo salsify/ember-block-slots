@@ -13,9 +13,7 @@ import Ember from 'ember'
  * @returns {ParameterObject} The parameter values set as an array on the params property
  */
 export function blockParams (params/*, hash*/) {
-  return {
-    params: Ember.A(params)
-  }
+  return Ember.A(params)
 }
 
 export default Ember.Helper.helper(blockParams)

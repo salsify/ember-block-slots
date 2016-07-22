@@ -1,19 +1,23 @@
 {{yield}}
 
-{{#yield-slot 'header'}}
-  <div>
-    {{yield (block-params header 'hello' 'world')}}
-  </div>
-{{/yield-slot}}
-
-{{#yield-slot 'main'}}
-  {{yield (block-params body 'goodnight' 'moon')}}
+{{#yield-slot 'header' (block-params 'header param')}}
+  {{!#footer-component}}
+    {{yield}}
+  {{!/footer-component}}
 {{else}}
-  Default {{sampleBody}}
+  <div>Default header</div>
 {{/yield-slot}}
 
-{{#yield-slot 'footer'}}
-  <div>
-    {{yield (block-params footer 'awesome' 'you')}}
-  </div>
+{{#yield-slot 'body' (block-params (hash content='body content from hash'))}}
+  <div>{{yield}}</div>
+{{/yield-slot}}
+
+{{#yield-slot 'widget' (block-params property)}}
+  <div>{{yield}}</div>
+{{/yield-slot}}
+
+{{#yield-slot 'footer' (block-params 'footer param')}}
+  {{#footer-component}}
+    {{yield}}
+  {{/footer-component}}
 {{/yield-slot}}

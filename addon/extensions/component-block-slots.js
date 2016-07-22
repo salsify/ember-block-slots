@@ -19,7 +19,7 @@ Component.reopen({
    * @private
    * @type {ember/Object}
    */
-  _slots: Ember.Object.create({}),
+  _slots: Ember.A(),
 
   /**
    * Registers a slot "block section" by name
@@ -30,6 +30,6 @@ Component.reopen({
    * @returns {undefined}
    */
   _registerSlot (name) {
-    this._slots.set(name, true)
+    this._slots.addObject(name)
   }
 })
