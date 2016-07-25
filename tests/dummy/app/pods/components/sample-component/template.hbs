@@ -7,20 +7,18 @@
   {{/yield-slot}}
 </div>
 
-{{#yield-slot 'conditional-with-default'}}
-  <div class='slot pink-2'>
-    Conditional with default: {{yield}}
-  </div>
-{{else}}
-  <div class='slot pink'>
-    Conditional with default: Default
-  </div>
-{{/yield-slot}}
-
 <div class='slot green'>
   {{#yield-slot 'params' (block-params
     (hash x='X')
     computedValue
+  )}}
+    {{yield}}
+  {{/yield-slot}}
+</div>
+
+<div class='slot red actions'>
+  {{#yield-slot 'actions' (block-params
+    (action 'internal')
   )}}
     {{yield}}
   {{/yield-slot}}
@@ -34,13 +32,15 @@
   {{/yield-slot}}
 </div>
 
-<div class='slot red actions'>
-  {{#yield-slot 'actions' (block-params
-    (action 'internal')
-  )}}
-    {{yield}}
-  {{/yield-slot}}
-</div>
+{{#yield-slot 'conditional-with-default'}}
+  <div class='slot pink-2'>
+    Conditional with default: {{yield}}
+  </div>
+{{else}}
+  <div class='slot pink'>
+    Conditional with default: Default
+  </div>
+{{/yield-slot}}
 
 <div class='slot purple'>
   {{#yield-slot 'contextual' (block-params

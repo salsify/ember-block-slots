@@ -9,12 +9,6 @@
       <div>Basic</div>
     {{/block-slot}}
 
-    {{#if isCondition}}
-      {{#block-slot 'conditional-with-default'}}
-        Custom
-      {{/block-slot}}
-    {{/if}}
-
     {{#block-slot 'params' as |hash computedValue|}}
       <div>Hash param: {{hash.x}}</div>
       <div>Positional param + computed: {{computedValue}}</div>
@@ -29,10 +23,6 @@
       </div>
     {{/block-slot}}
 
-    {{#block-slot 'chained-yield'}}
-      Leaf
-    {{/block-slot}}
-
     {{#block-slot 'actions' as |internal|}}
       <input type='button' value='Internal action'
         onclick={{action internal}}>
@@ -40,6 +30,16 @@
       <input type='button' value='External action'
         onclick={{action (action 'external')}}>
     {{/block-slot}}
+
+    {{#block-slot 'chained-yield'}}
+      Leaf
+    {{/block-slot}}
+
+    {{#if isCondition}}
+      {{#block-slot 'conditional-with-default'}}
+        Custom
+      {{/block-slot}}
+    {{/if}}
 
     {{#block-slot 'contextual' as |contextual|}}
       {{contextual.button onClick=(action 'toggleCondition')}}
@@ -54,10 +54,10 @@
       <div class='outline component'>
         <div class='setup grey'></div>
         <div class='basic blue'></div>
-        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
         <div class='params green'></div>
-        <div class='chained amber'></div>
         <div class='actions red'></div>
+        <div class='chained amber'></div>
+        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
         <div class='contextual purple'></div>
       </div>
       {{code-snippet name='sample-component.hbs'}}
@@ -70,10 +70,10 @@
       <div class='outline instance'>
         <div class='setup top grey'></div>
         <div class='basic blue'></div>
-        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
         <div class='params green'></div>
-        <div class='chained amber'></div>
         <div class='actions red'></div>
+        <div class='chained amber'></div>
+        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
         <div class='contextual purple'></div>
         <div class='setup bottom grey'></div>
       </div>
