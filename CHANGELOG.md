@@ -1,3 +1,22 @@
+# 1.0.0
+
+- Overhauled the project to provide a cleaner/simpler interface and unlock additional features
+- Updated the README and demo to provide a clearer use case for the addon and more usage examples
+- Refer to the demo for the full feature set and syntax
+
+## BREAKING CHANGES
+
+- A mixin is now required to enable slots for a component: `import SlotsMixin from 'ember-block-slots`
+- `block-params` are now specified against `yield-slot` instead of `yield`
+- `as |slot|` is no longer required on the component interface
+- `slot` is no longer required on the `block-slot` interface
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/29)
+<!-- Reviewable:end -->
+
+
 # 0.12.4
 
 ## Non-Breaking
