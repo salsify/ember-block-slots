@@ -101,14 +101,14 @@ When using the component, target content for the yield slots using block slots
 ```
 
 Of course, this is only a glimpse at the interface designs now available to you.  Block slots also support:
-- Slot defaults
-- Conditional slots
-- Block params per slot (i.e. `as |param|`)
- - Positional params
- - Hash params 
- - Contextual components
- - Closure actions
-- Access to properties/actions from the controller/route scope
+- Defaults per slot (e.g. http://codingvalue.com/blog/ember-inverse-yield/)
+- Conditional slots (e.g. https://guides.emberjs.com/v2.6.0/templates/conditionals/)
+- Block params per slot (e.g. https://guides.emberjs.com/v2.6.0/components/block-params/)
+ - Positional params (e.g. https://guides.emberjs.com/v2.6.0/components/passing-properties-to-a-component/#toc_positional-params)
+ - Hash params (e.g. http://emberjs.com/api/classes/Ember.Templates.helpers.html#method_hash)
+ - Contextual components (e.g. https://guides.emberjs.com/v2.6.0/components/wrapping-content-in-a-component/#toc_sharing-component-data-with-its-wrapped-content)
+ - Closure actions (e.g. http://alexdiliberto.com/posts/ember-closure-actions/)
+- Access to properties/actions from the controller/route scope (e.g. https://guides.emberjs.com/v2.6.0/templates/handlebars-basics/#toc_displaying-properties)
 - Chained yields (yielding to another component inside the pattern component)
 
 See the **[demo](http://ciena-blueplanet.github.io/ember-block-slots)** for additional syntax and examples.
