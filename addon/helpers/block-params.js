@@ -1,21 +1,31 @@
+/* eslint valid-jsdoc:0 */
 import Ember from 'ember'
+const {
+  A,
+  Helper
+} = Ember
 
 /**
- * @typedef {Object} ParameterObject
- * @property {ember/Array} params A property to hold the list of parameters
- */
-
-/**
- * Creates an object with a propery set to an array of the values passed in.
+ * Per yield slot parameters made available to an associated block slot
  *
- * @function
- * @param {Array} params Values to add to the object's property
- * @returns {ParameterObject} The parameter values set as an array on the params property
+ * e.g.
+ *
+ * {{#yield-slot 'foo' (block-params 'a' 'b' 'c')}}
+ *   <div>{{yield}}</div>
+ * {{/yield-slot}}
+ *
+ * would be available as
+ *
+ * {{#block-slot 'foo' as |x y z|}}
+ *   {{x}} {{y}} {{z}}
+ * {{/block-slot}}
+ *
+ * and would result in DOM
+ *
+ * <div>a b c</div>
  */
-export function blockParams (params/*, hash*/) {
-  return {
-    params: Ember.A(params)
-  }
+export function blockParams (params) {
+  return A(params)
 }
 
-export default Ember.Helper.helper(blockParams)
+export default Helper.helper(blockParams)

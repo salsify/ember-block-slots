@@ -1,81 +1,64 @@
 import Ember from 'ember'
-import layout from '../templates/components/yield-slot'
-
 const {
-  assert,
   Component,
   computed
 } = Ember
+import layout from '../templates/components/yield-slot'
+import { PropTypes } from 'ember-prop-types'
 
 /**
- * @module
- * @augments ember/Component
+ * {{yield-slot}} provides a target for {{block-slot}} content
+ *
+ * Yield slots may also have a default, specified using the {{else}} helper
+ * as per https://guides.emberjs.com/v2.6.0/components/block-params/#toc_supporting-both-block-and-non-block-component-usage-in-one-template
+ *
+ * e.g.
+ *
+ * // my-component.hbs
+ * {{yield}}
+ *
+ * {{#yield-slot 'foo'}}
+ *   {{yield}}
+ * {{else}}
+ *   <div>Default</div>
+ * {{/yield-slot}}
+ *
+ * when used without a {{#block-slot 'foo'}}
+ *
+ * // my-route.hbs
+ * {{my-component}}
+ *
+ * would result in DOM
+ *
+ * <div>Default</div>
  */
-const component = Component.extend({
+const YieldSlotComponent = Component.extend({
 
-  /** @type {Object} */
+  // == Component properties ==================================================
+
   layout,
-
-  /** @type {String} */
   tagName: '',
 
-  /** @type {?String} */
-  name: null,
+  // == State properties ======================================================
 
-  /**
-   * init event hook
-   *
-   * @returns {undefined}
-   */
-  init () {
-    this._super(...arguments)
-    this.componentInit()
+  propTypes: {
+    _blockParams: PropTypes.array,
+    // TODO better validation message
+    // https://github.com/ciena-blueplanet/ember-prop-types/issues/15
+    _name: PropTypes.string.isRequired
   },
 
-  /**
-   * Verifies a name property is passed in and sets up the initial state
-   *
-   * @returns {undefined}
-   */
-  componentInit () {
-    assert('You must include a name for your slot', this.name)
+  // == Computed properties ===================================================
 
-    this.set('_slots', this.parentView._slots)
-  },
-
-  /**
-   * Used to determine whether a slot "block section" has been set or to use the default
-   *
-   * @function
-   * @returns {Boolean}
-   */
-  isSlotActive: computed('_slots', 'name', function () {
-    return this.get(`_slots.${this.get('name')}`)
-  }),
-
-  /**
-   * Registers a slot "block section"
-   *
-   * @private
-   * @param {String} name The name of the slot "block section"
-   * @returns {undefined}
-   */
-  // TODO can we find a way to remove this?
-  _registerSlot (name) {
-    this.parentView._registerSlot(name)
-  }
+  // A yield slot is considered active if a block slot registered a matching
+  // name against the parent component with the Slots mixin
+  isActive: computed('parentView._slots.[]', '_name', function () {
+    return this.get('parentView._slots').contains(this.get('_name'))
+  })
 })
 
-/**
- * @memberof ember/Component#
- */
-component.reopenClass({
-
-  /**
-   * @type {Array}
-   * @default name
-   */
-  positionalParams: [ 'name' ]
+YieldSlotComponent.reopenClass({
+  positionalParams: [ '_name', '_blockParams' ]
 })
 
-export default component
+export default YieldSlotComponent

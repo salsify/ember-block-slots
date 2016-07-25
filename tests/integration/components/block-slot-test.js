@@ -13,7 +13,7 @@ const slotObject = Ember.Object.create({
   )
 })
 
-describeComponent(
+describeComponent.skip(
   'block-slot',
   'Integration: BlockSlotComponent',
   {

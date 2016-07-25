@@ -1,191 +1,93 @@
 import Ember from 'ember'
-import layout from '../templates/components/block-slot'
-
 const {
-  assert,
   Component,
-  computed
+  computed,
+  defineProperty,
+  isPresent,
+  on
 } = Ember
+import layout from '../templates/components/block-slot'
+import { PropTypes } from 'ember-prop-types'
+import Slots from '../mixins/slots'
+import YieldSlot from './yield-slot'
 
 /**
- * @module
- * @augments ember/Component
+ * A block slot provides content for a target yield slot with a matching name
+ *
+ * e.g. {{#block-slot 'foo'}} would provide content for {{#yield-slot 'foo'}}
+ *
+ * Block slots may also use block params, see addon/helpers/block-params.js
  */
-const component = Component.extend({
+const BlockSlot = Component.extend({
 
-  /** @type {Object} */
+  // == Component properties ==================================================
+
   layout,
-
-  /** @type {String} */
   tagName: '',
 
-  /** @type {String} */
-  name: null,
+  // == State properties ======================================================
 
-  /** @type {?Object} */
-  yieldedSlot: null,
-
-  /**
-   * The name of the parent component's slot "block section"
-   *
-   * @type {String}
-   */
-  yieldedSlotName: computed.readOnly('parentView.name'),
-
-  /**
-   * Whether this slot should be yielded
-   *
-   * @function
-   * @returns {Boolean}
-   */
-  isSlotYield: computed('name', 'yieldedSlotName', function () {
-    return this.get('name') === this.get('yieldedSlotName')
-  }),
-
-  // TODO In order to match the standard block params syntax we need
-  // to be able to pass a spread of positional params to the yield
-  // https://github.com/wycats/handlebars.js/pull/1149
-  //
-  // Until then we either have to use a hash, which changes the block
-  // param syntax for the slots, or a finite number of params passed
-  // directly to the yield, which is what we've opted for since it
-  // maintains the block param syntax
-
-  /**
-   * The first parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p0: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(0)
-  }),
-
-  /**
-   * The second parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p1: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(1)
-  }),
-
-  /**
-   * The third parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p2: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(2)
-  }),
-
-  /**
-   * The fourth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p3: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(3)
-  }),
-
-  /**
-   * The fifth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p4: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(4)
-  }),
-
-  /**
-   * The sixth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p5: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(5)
-  }),
-
-  /**
-   * The seventh parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p6: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(6)
-  }),
-
-  /**
-   * The eighth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p7: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(7)
-  }),
-
-  /**
-   * The ninth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p8: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(8)
-  }),
-
-  /**
-   * The tenth parameter of the yield
-   *
-   * @function
-   * @returns {Array|Boolean|Object|String}
-   */
-  p9: computed('yieldedSlot.params.[]', function () {
-    return this.get('yieldedSlot.params').objectAt(9)
-  }),
-
-  /**
-   * init event hook
-   *
-   * @returns {undefined}
-   */
-  init () {
-    this._super(...arguments)
-    this.componentInit()
+  propTypes: {
+    isTargetSlotYielding: PropTypes.bool,
+    // TODO better validation message
+    // https://github.com/ciena-blueplanet/ember-prop-types/issues/15
+    _name: PropTypes.string.isRequired,
+    _yieldSlot: PropTypes.EmberObject
   },
 
-  /**
-   * Verifies a name property is passed in and sets up the initial state
-   *
-   * @returns {undefined}
-   */
-  componentInit () {
-    assert('You must include a name for your block', this.name)
+  // == Events ================================================================
 
-    // TODO Keep an eye on this https://github.com/emberjs/ember.js/issues/11170
-    // We're using parentView to avoid passing register on each yield slot,
-    // maybe a helper can handle this?
-    this.parentView._registerSlot(this.name)
-  }
+  _init: on('init', function () {
+    // Find the yield slot for this block
+    const yieldSlot = this.nearestOfType(YieldSlot)
+
+    if (!yieldSlot) {
+      // Active the yield slot using the slots interface
+      const slottedComponent = this.nearestOfType(Slots)
+      slottedComponent._activateSlot(this._name)
+
+      // Store the slotted component for use during deactivation
+      this.set('slottedComponent', slottedComponent)
+    } else {
+      // Store the activated yield slot for block params computed properties
+      this.set('_yieldSlot', yieldSlot)
+
+      // The slotted component will yield multiple times - once to register
+      // the activate slots and once more per active slot - only display this
+      // block when its associated slot is the one yielding
+      const isTargetSlotYielding = yieldSlot._name === this._name
+      this.set('isTargetSlotYielding', isTargetSlotYielding)
+
+      // If the associated slot has block params, create a computed property
+      // for each block param.  Technically this could be an unlimited, but
+      // hbs lacks a spread operator so params are currently limited to 9
+      // (see the yield in the block-slot template)
+      //
+      // Spread PR: https://github.com/wycats/handlebars.js/pull/1149
+      if (isTargetSlotYielding && isPresent(yieldSlot._blockParams)) {
+        // p0 p1 p2...
+        yieldSlot._blockParams.forEach((param, index) => {
+          defineProperty(this, `p${index}`,
+            computed.readOnly(`_yieldSlot._blockParams.${index}`)
+          )
+        })
+      }
+    }
+  }),
+
+  _willDestroyElement: on('willDestroyElement', function () {
+    const slottedComponent = this.get('slottedComponent')
+    if (slottedComponent) {
+      // Deactivate the yield slot using the slots interface when the block
+      // is destroyed to allow the yield slot default {{else}} to take effect
+      // dynamically
+      slottedComponent._deactivateSlot(this._name)
+    }
+  })
 })
 
-/**
- * @memberof ember/Component#
- */
-component.reopenClass({
-
-  /**
-   * @type {Array}
-   * @default yieldedSlot, name
-   */
-  positionalParams: [ 'yieldedSlot', 'name' ]
+BlockSlot.reopenClass({
+  positionalParams: [ '_name' ]
 })
 
-export default component
+export default BlockSlot

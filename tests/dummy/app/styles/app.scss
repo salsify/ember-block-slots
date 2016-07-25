@@ -1,96 +1,110 @@
 @import 'frost-app';
 @import 'frost-theme';
 
-.dummy-body {
-  padding: 0 10px;
-}
-
-p {
-  padding: 10px;
-  max-width: 980px;
-}
-
-pre {
-  margin: 0;
-}
-
-hr {
-  text-align: left;
-  margin-left: 0;
-  width: calc(100vw - 250px);
-}
-
-.section-header {
-  margin: 10px 0;
-  font-size: $frost-font-xl;
-  color: $frost-color-white;
-  width: calc(100vw - 250px);
-  height: 55px;
-  background-color: $frost-color-blue-1;
-  padding: 10px;
-}
-
-.section-header a {
-  float: right;
-  font-size: $frost-font-m;
-  padding-top: 5px;
-  margin-right: 10px;
-  color: $frost-color-white;
-  text-decoration: none;
-}
-
-
-.section-title {
-  font-size: $frost-font-xl;
-  padding: 10px;
-}
-
-.dummy-body .title {
-  padding-bottom: 10px;
-  padding-top: 10px;
-  font-family: $frost-font-family;
-  font-size: $frost-font-l;
-}
-
-.dummy-body .section {
+.demo {
   display: flex;
   flex-direction: row;
-  flex-flow: wrap;
-  width: calc(100vw - 250px);
-  padding-left: 10px;
+  margin: 0 20px;
+  padding-top: 20px;
 
-  > .title {
-    font-size: $frost-font-xl;
-    padding-bottom: 20px;
-  }
-
-  .example {
-    padding-right: 25px;
-    padding-bottom: 10px;
-
-    > .title {
-      font-size: $frost-font-l;
-      padding-bottom: 15px;
-    }
-
-    .snippet {
-      display: inline-block;
-      font-size: $frost-font-s;
-      margin-right: 20px;
-      vertical-align: top;
-    }
-
-    .demo {
-      display: block;
-      vertical-align: top;
-      margin-bottom: 10px;
-      > .frost-icon {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 20px;
-      }
-    }
+  > div + div {
+    margin-left: 40px;
   }
 }
 
+.demo-component {
+  min-width: 315px;
 
+  div:first-of-type {
+    margin-top: 0;
+  }
+
+  div:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.slot {
+  margin: 20px 0;
+  padding: 20px;
+
+  input {
+    display: block;
+    padding: 5px;
+  }
+}
+
+.grey {
+  background-color: #9e9e9e;
+}
+
+.blue {
+  background-color: #2196f3;
+}
+
+.pink {
+  background-color: #e91e63;
+}
+
+.pink-2 {
+  background-color: #ec407a;
+}
+
+.cyan {
+  background-color: #00bcd4;
+}
+
+.green {
+  background-color: #4caf50;
+}
+
+.amber {
+  background-color: #ffc107;
+}
+
+.red {
+  background-color: #f44336;
+}
+
+.purple {
+  background-color: #9c27b0;
+}
+
+.hljs {
+  font-size: 11px;
+}
+
+.code {
+  display: flex;
+  flex-direction: row;
+}
+
+.outline {
+  width: 5px;
+  margin: 10px 0;
+
+  div {
+    width: 100%;
+  }
+
+  &.component {
+    .setup { height: 5%; }
+    .basic { height: 11%; }
+    .conditional { height: 20%; }
+    .params { height: 17%; }
+    .chained { height: 16%; }
+    .actions { height: 15%; }
+    .contextual { height: 16%; }
+  }
+
+  &.instance {
+    .setup.top { height: 11%; }
+    .basic { height: 9%; }
+    .conditional { height: 12%; }
+    .params { height: 30%; }
+    .chained { height: 8%; }
+    .actions { height: 17%; }
+    .contextual { height: 9%; }
+    .setup.bottom { height: 4%; }
+  }
+}

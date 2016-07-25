@@ -8,7 +8,7 @@ import {
   blockParams
 } from 'ember-block-slots/helpers/block-params'
 
-describe(
+describe.skip(
   'Unit: BlockParamsHelper',
   function () {
     it('"blockParams()" returns an object with a property "params" that is an "Array"', function () {
