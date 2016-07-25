@@ -2,149 +2,122 @@
 [ci-url]: https://travis-ci.org/ciena-blueplanet/ember-block-slots
 [cov-img]: https://img.shields.io/coveralls/ciena-blueplanet/ember-block-slots.svg "Coveralls Code Coverage"
 [cov-url]: https://coveralls.io/github/ciena-blueplanet/ember-block-slots
-[npm-img]: https://img.shields.io/npm/v/ember-block-slots.svg "NPM Version"
-[npm-url]: https://www.npmjs.com/package/ember-block-slots
-[lic-img]: https://img.shields.io/npm/l/ember-block-slots.svg
-[lic-url]: LICENSE.md
-[dep-img]: https://img.shields.io/david/ciena-blueplanet/ember-block-slots.svg
-[dep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots
-[devdep-img]: https://img.shields.io/david/dev/ciena-blueplanet/ember-block-slots.svg
-[devdep-url]: https://david-dm.org/ciena-blueplanet/ember-block-slots#info=devDependencies
 [eo-img]: https://emberobserver.com/badges/ember-block-slots.svg
 [eo-url]: https://emberobserver.com/addons/ember-block-slots
-[embercli-url]: https://embadge.io/v1/ciena-blueplanet/ember-block-slots/master/ember-cli.svg
 
 # ember-block-slots <br />
 
-[![NPM][npm-img]][npm-url] ![Ember CLI version][embercli-url] [![License][lic-img]][lic-url]
-
 [![Travis][ci-img]][ci-url] [![Coveralls][cov-img]][cov-url] [![Ember Observer][eo-img]][eo-url]
 
-[![Dependencies][dep-img]][dep-url] [![Dev Dependencies][devdep-img]][devdep-url]
+Adds contextual **layout** to component interfaces.
 
-Support for multiple yield slots, including default slots, within a component block
+**[Demo](http://ciena-blueplanet.github.io/ember-block-slots)**
 
-Target syntax is:
+### Why does this matter?
 
-```
-{{#sample-component}}
-  {{#block-slot 'header' as |x|}}
-    I am the content {{x}}
-  {{/block-slot}}
-  {{#block-slot 'main'}}
-    I am the content
-  {{/block-slot}}
-  {{#block-slot 'footer' as |y z|}}
-    I am the content {{y}} {{z}}
-  {{/block-slot}}
-{{/sample-component}}
-```
+#### *"I know why this matters, take me straight to the [usage](#usage)*"
 
-The component needs to yield for each slot, so the conditional in the component won't work, but we still need to handle defaults, which means that if a slot isn't provided we need an option to go back to the component template for the default.  It's like we need to yield *once* to let all the block slots activate, but wait for the block slots to then put content back in (instead of coming from the yield? seems portal-ish)
+Ember has a number of tools for component authors: a yield, block params, contextual components 
+and block defaults (else/inverse).  However, since only a single yield is available, Ember does 
+*not* provide a way for component authors to hide complex layouts behind a component interface.
+For authors of higher-order components this is a problem.
 
-Give credit to [@runspired](https://twitter.com/Runspired)
+#### Designing higher-order components (patterns of composite components)
 
-This README outlines the details of collaborating on this Ember addon.
+Suppose you want to create a higher-order component that acts as an inventory browser.
 
-## Demo
+![Mock inventory browser](./.images/inventory-browser.png)
 
-**[http://ciena-blueplanet.github.io/ember-block](http://ciena-blueplanet.github.io/ember-block-slots)**
+You want to arrange a title bar on the top of the page, a filter pane on the left and a list
+on the right.  The title bar can be customized with summary information (text, badges, graphs) 
+and contexual actions (e.g. keyword search, add).  The filter pane needs to be wired to the list,
+but filtering should be handled in the route/controller.  The list has a set of potential controls
+(e.g. sort, paginate, expand/collapse) and contextual actions based on the items selected that
+should also be handled in the route/controller.
 
-## Using this addon in your application
+##### There are two choices available
+
+The first choice is to **pre-select all the components** (e.g. form, list, buttons, links, graphs) 
+to fill these roles and proxy the relevant properties through the component interface, modifying 
+the interface whenever additional features are available.  Maybe your underlying components are 
+stable and maybe your feature set never expands, but don't bet the house on it; it's more likely
+that you'll need to rev and release your component based on the progression of the components you
+select.  This means **a lot of maintenance and a broad interface** - not ideal.
+
+The second choice is to **loosely couple the components, providing a number of CSS classes** and rely
+on the consumer to wrap the components in the correct HTML to layout the pattern as required.
+This works fine for a single instance, but **before you know it there are 10 instances of the pattern** 
+in your product and as the design team keeps making minor (or major) tweaks **and each of your browsers
+is starting to look a bit different...**
+
+#### Alright, I lied, there is a third choice
+
+You use this addon :wink:
+
+With multiple yield targets available, you're now able to combine the structured DOM from the first choice
+with the loose coupling of the second choice.  **Now consumers of the addon don't need to worry about:** 
+- **Layout changes** *"Oh look, the design team made the title bar a footer..."*
+- **Component updates** *"Lists now support pagination!...but this component hasn't upgraded..."*
+- **Proxying actions** *"But I really need 10 contextual action buttons/links in this case..."*
+
+### Seems promising, how does this work?
 
 ### Installation
 
-    ember install ember-block-slots
+ember install ember-block-slots
 
 ### Usage
 
-In the component template, place a "named" yield-slot block with what will be passed though for that named slot.
+Import and apply the SlotsMixin in the component where you want to provide multiple yield slots.
 
+```js
+import Ember from 'ember'
+import SlotsMixin from 'ember-block-slots'
 
+export default Ember.Component.extend(SlotsMixin, {
 ```
-sammple-component.hbs
 
+In the component template, yield once to allow instances to register block slots, then provide 
+one or more named yield slots
+
+```hbs
 {{yield}}
-{{#yield-slot 'header'}}
-  <div>
-    {{yield (block-params header 'hello' 'world')}}
-  </div>
-{{/yield-slot}}
 
-{{#yield-slot 'main'}}
-  {{yield (block-params body 'goodnight' 'moon')}}
-{{else}}
-  Default {{sampleBody}}
-{{/yield-slot}}
-
-{{#yield-slot 'footer'}}
-  <div>
-    {{yield (block-params footer 'awesome' 'you')}}
+{{#yield-slot 'name'}}
+  <div class='surrounding-layout'>
+    {{yield}}
   </div>
 {{/yield-slot}}
 ```
 
-Then, in your parent template place your component with the block-slots inside, matching them by name to the yield-slot. Within each block-slot, place the content that you want to yield for that block.
+When using the component, target content for the yield slots using block slots
 
-```
-parent-template.hbs
-
-{{#sample-component sampleBody='BODY' as |slot|}}
-  {{#block-slot slot 'header' as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} | {{w2}}
+```hbs
+{{#pattern-component}}
+  {{#block-slot 'name'}}
+    <div>Content for the yield</div>
   {{/block-slot}}
-  {{#block-slot slot 'footer' as |info w1 w2|}}
-    I am the content {{info.title}} | {{w1}} | {{w2}}
-  {{/block-slot}}
-{{/sample-component}}
+{{/pattern-component}}
 ```
 
-Given this data:
+Of course, this is only a glimpse at the interface designs now available to you.  Block slots also support:
+- Slot defaults
+- Conditional slots
+- Block params per slot (i.e. `as |param|`)
+ - Positional params
+ - Hash params 
+ - Contextual components
+ - Closure actions
+- Access to properties/actions from the controller/route scope
+- Chained yields (yielding to another component inside the pattern component)
 
-```
-header: { title: 'HEADER' },
-body: { title: 'BODY' },
-footer: { title: 'FOOTER' }
-```
+See the **[demo](http://ciena-blueplanet.github.io/ember-block-slots)** for additional syntax and examples.
 
-The rendered output is:
+### Issues/requests
 
-```
-I am the content HEADER | hello | world
-Default BODY
-I am the content FOOTER | awesome | you
-```
+Found a corner case?  Thought of a design pattern we haven't listed?
+PRs and issues are welcome!
 
-## Development Environment
+### Credits
 
-### Installation
-
-* `git clone` this repository
-* `npm install`
-* `bower install`
-
-### Running
-
-* `ember server`
-* Visit your app at http://localhost:4200.
-
-### Documentation
-
-* `ember ember-cli-jsoc` or `npm run docs` (shortcut setup in this repo)
-* Visit *http://localhost:4200/docs*
-
-### Running Tests
-
-* `npm test` (Runs `ember try:testall` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-### Building
-
-* `ember build`
-
-For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
-
-## Versioning
-
-Employs [Semantic Versioning 2.0.0](http://semver.org/)
+Thanks to [@runspired](https://twitter.com/Runspired) for the initial inspiration for this implementation.
