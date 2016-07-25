@@ -1,23 +1,52 @@
+{{! BEGIN-SNIPPET sample-component }}
 {{yield}}
 
-{{#yield-slot 'header' (block-params 'header param')}}
-  {{!#footer-component}}
+<div class='slot blue'>
+  {{#yield-slot 'basic'}}
     {{yield}}
-  {{!/footer-component}}
+  {{/yield-slot}}
+</div>
+
+{{#yield-slot 'conditional-with-default'}}
+  <div class='slot pink-2'>
+    Conditional with default: {{yield}}
+  </div>
 {{else}}
-  <div>Default header</div>
+  <div class='slot pink'>
+    Conditional with default: Default
+  </div>
 {{/yield-slot}}
 
-{{#yield-slot 'body' (block-params (hash content='body content from hash'))}}
-  <div>{{yield}}</div>
-{{/yield-slot}}
-
-{{#yield-slot 'widget' (block-params property)}}
-  <div>{{yield}}</div>
-{{/yield-slot}}
-
-{{#yield-slot 'footer' (block-params 'footer param')}}
-  {{#footer-component}}
+<div class='slot green'>
+  {{#yield-slot 'params' (block-params
+    (hash x='X')
+    computedValue
+  )}}
     {{yield}}
-  {{/footer-component}}
-{{/yield-slot}}
+  {{/yield-slot}}
+</div>
+
+<div class='slot amber'>
+  {{#yield-slot 'chained-yield'}}
+    {{#internal-component}}
+      Branch: {{yield}}
+    {{/internal-component}}
+  {{/yield-slot}}
+</div>
+
+<div class='slot red actions'>
+  {{#yield-slot 'actions' (block-params
+    (action 'internal')
+  )}}
+    {{yield}}
+  {{/yield-slot}}
+</div>
+
+<div class='slot purple'>
+  {{#yield-slot 'contextual' (block-params
+    (hash button=(component 'button-component'))
+  )}}
+    {{yield}}
+  {{/yield-slot}}
+</div>
+{{! END-SNIPPET sample-component }}

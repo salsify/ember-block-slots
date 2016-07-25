@@ -1,18 +1,84 @@
-{{#sample-component
-  property=controllerProperty
-}}
-  {{!--#block-slot slot 'header'}}
-    Header yield
-  {{/block-slot--}}
-  {{#block-slot 'body' as |hash|}}
-    Body yield: {{hash.content}}
-  {{/block-slot}}
-  {{#block-slot 'widget' as |property|}}
-    Widget yield: {{property}}
-  {{/block-slot}}
-  {{#block-slot 'footer' as |positionalParam|}}
-    Footer yield: {{positionalParam}}
-  {{/block-slot}}
-{{/sample-component}}
+<div class='demo'>
+  {{! BEGIN-SNIPPET block-slots }}
+  {{#sample-component
+    class='demo-component'
+    value=controllerValue
+  }}
 
-<button onclick={{action (action 'updateControllerProperty')}}>Update controller property</button>
+    {{#block-slot 'basic'}}
+      <div>Basic</div>
+    {{/block-slot}}
+
+    {{#if isCondition}}
+      {{#block-slot 'conditional-with-default'}}
+        Custom
+      {{/block-slot}}
+    {{/if}}
+
+    {{#block-slot 'params' as |hash computedValue|}}
+      <div>Hash param: {{hash.x}}</div>
+      <div>Positional param + computed: {{computedValue}}</div>
+      <div>External: {{controllerExternal}}</div>
+      <br>
+      <div>
+        <input type='button' value='Change value'
+          onclick={{action (action 'changeValue')}}>
+        <br>
+        <input type='button' value='Change external'
+          onclick={{action (action 'changeExternal')}}>
+      </div>
+    {{/block-slot}}
+
+    {{#block-slot 'chained-yield'}}
+      Leaf
+    {{/block-slot}}
+
+    {{#block-slot 'actions' as |internal|}}
+      <input type='button' value='Internal action'
+        onclick={{action internal}}>
+      <br>
+      <input type='button' value='External action'
+        onclick={{action (action 'external')}}>
+    {{/block-slot}}
+
+    {{#block-slot 'contextual' as |contextual|}}
+      {{contextual.button onClick=(action 'toggleCondition')}}
+    {{/block-slot}}
+
+  {{/sample-component}}
+  {{! END-SNIPPET  block-slots }}
+
+  <div>
+    <div>sample-component.hbs</div>
+    <div class='code'>
+      <div class='outline component'>
+        <div class='setup grey'></div>
+        <div class='basic blue'></div>
+        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
+        <div class='params green'></div>
+        <div class='chained amber'></div>
+        <div class='actions red'></div>
+        <div class='contextual purple'></div>
+      </div>
+      {{code-snippet name='sample-component.hbs'}}
+    </div>
+  </div>
+
+  <div>
+    <div>block-slots.hbs</div>
+    <div class='code'>
+      <div class='outline instance'>
+        <div class='setup top grey'></div>
+        <div class='basic blue'></div>
+        <div class="conditional {{if isCondition 'pink-2' 'pink'}}"></div>
+        <div class='params green'></div>
+        <div class='chained amber'></div>
+        <div class='actions red'></div>
+        <div class='contextual purple'></div>
+        <div class='setup bottom grey'></div>
+      </div>
+      {{code-snippet name='block-slots.hbs'}}
+    </div>
+  </div>
+
+</div>

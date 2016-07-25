@@ -10,7 +10,10 @@ module.exports = function (defaults) {
       includePaths: [
         'node_modules/ember-frost-core/addon/styles'
       ]
-    }
+    },
+    snippetSearchPaths: [
+      'tests/dummy'
+    ]
   })
 
   app.import('bower_components/highlightjs/styles/github.css')
