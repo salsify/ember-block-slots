@@ -1,3 +1,15 @@
+# 1.0.1
+
+- ensures that the array is unique per instance
+
+fixes #31
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/32)
+<!-- Reviewable:end -->
+
+
 # 1.0.0
 
 - Overhauled the project to provide a cleaner/simpler interface and unlock additional features
