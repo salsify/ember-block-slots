@@ -1,6 +1,7 @@
 import Ember from 'ember'
 const {
-  Mixin
+  Mixin,
+  computed
 } = Ember
 
 /**
@@ -8,13 +9,15 @@ const {
  * to activate and deactivate a yield-slot/block-slot pairing
  */
 export default Mixin.create({
-  _slots: Ember.A(),
+  _slots: computed(function () {
+    return Ember.A()
+  }),
 
   _activateSlot (name) {
-    this._slots.addObject(name)
+    this.get('_slots').addObject(name)
   },
 
   _deactivateSlot (name) {
-    this._slots.removeObject(name)
+    this.get('_slots').removeObject(name)
   }
 })
