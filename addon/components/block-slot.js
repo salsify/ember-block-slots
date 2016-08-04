@@ -40,7 +40,7 @@ const BlockSlot = Component.extend({
   _init: on('init', function () {
     // Active the yield slot using the slots interface
     const slottedComponent = this.nearestOfType(Slots)
-    if (!slottedComponent._isRegisterd(this._name)) {
+    if (!slottedComponent._isRegistered(this._name)) {
       slottedComponent._activateSlot(this._name)
       // Store the slotted component for use during deactivation
       this.set('slottedComponent', slottedComponent)
