@@ -1,3 +1,13 @@
+# 1.1.0
+
+Supporting nested block slots
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/34)
+<!-- Reviewable:end -->
+
+
 # 1.0.1
 
 - ensures that the array is unique per instance
