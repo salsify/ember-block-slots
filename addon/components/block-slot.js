@@ -38,17 +38,20 @@ const BlockSlot = Component.extend({
   // == Events ================================================================
 
   _init: on('init', function () {
+    // Active the yield slot using the slots interface
+    const slottedComponent = this.nearestOfType(Slots)
+    if (!slottedComponent._isRegistered(this._name)) {
+      slottedComponent._activateSlot(this._name)
+      // Store the slotted component for use during deactivation
+      this.set('slottedComponent', slottedComponent)
+      // Activation is done, the next pass will contain a local yieldSlot
+      return
+    }
+
     // Find the yield slot for this block
     const yieldSlot = this.nearestOfType(YieldSlot)
 
-    if (!yieldSlot) {
-      // Active the yield slot using the slots interface
-      const slottedComponent = this.nearestOfType(Slots)
-      slottedComponent._activateSlot(this._name)
-
-      // Store the slotted component for use during deactivation
-      this.set('slottedComponent', slottedComponent)
-    } else {
+    if (yieldSlot) {
       // Store the activated yield slot for block params computed properties
       this.set('_yieldSlot', yieldSlot)
 
