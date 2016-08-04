@@ -19,5 +19,8 @@ export default Mixin.create({
 
   _deactivateSlot (name) {
     this.get('_slots').removeObject(name)
+  },
+  _isRegisterd (name) {
+    return this.get('_slots').contains(name)
   }
 })

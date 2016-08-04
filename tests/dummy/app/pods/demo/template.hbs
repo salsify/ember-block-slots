@@ -48,6 +48,62 @@
   {{/sample-component}}
   {{! END-SNIPPET  block-slots }}
 
+  {{! BEGIN-SNIPPET complex-slots }}
+  {{#complex-component
+    class='demo-component'
+    value=controllerValue
+  }}
+    {{#block-slot 'basic'}}
+      {{#sample-component
+        class='demo-component'
+        value=controllerValue
+      }}
+
+        {{#block-slot 'basic'}}
+          <div>Basic</div>
+        {{/block-slot}}
+
+        {{#block-slot 'params' as |hash computedValue|}}
+          <div>Hash param: {{hash.x}}</div>
+          <div>Positional param + computed: {{computedValue}}</div>
+          <div>External: {{controllerExternal}}</div>
+          <br>
+          <div>
+            <input type='button' value='Change value'
+              onclick={{action (action 'changeValue')}}>
+            <br>
+            <input type='button' value='Change external'
+              onclick={{action (action 'changeExternal')}}>
+          </div>
+        {{/block-slot}}
+
+        {{#block-slot 'actions' as |internal|}}
+          <input type='button' value='Internal action'
+            onclick={{action internal}}>
+          <br>
+          <input type='button' value='External action'
+            onclick={{action (action 'external')}}>
+        {{/block-slot}}
+
+        {{#block-slot 'chained-yield'}}
+          Leaf
+        {{/block-slot}}
+
+        {{#if isCondition}}
+          {{#block-slot 'conditional-with-default'}}
+            Custom
+          {{/block-slot}}
+        {{/if}}
+
+        {{#block-slot 'contextual' as |contextual|}}
+          {{contextual.button onClick=(action 'toggleCondition')}}
+        {{/block-slot}}
+
+      {{/sample-component}}
+    {{/block-slot}}
+  {{/complex-component}}
+  {{! END-SNIPPET  complex-slots }}
+
   <div>
     <div>sample-component.hbs</div>
     <div class='code'>
