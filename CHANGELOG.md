@@ -1,3 +1,13 @@
+# 1.1.1
+
+- Added ember-prop-types to the addon blueprint to install the dependency during `ember install`
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/36)
+<!-- Reviewable:end -->
+
+
 # 1.1.0
 
 Supporting nested block slots
