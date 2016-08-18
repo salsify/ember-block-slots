@@ -50,10 +50,16 @@ const YieldSlotComponent = Component.extend({
 
   // == Computed properties ===================================================
 
+  // Use nearestOfType to determine the parent view, just in case there are
+  // other components sandwiched between the block slot and the Slots mixin
+  _parentView: computed(function() {
+     return this.nearestOfType(Slots)
+  }),
+
   // A yield slot is considered active if a block slot registered a matching
   // name against the parent component with the Slots mixin
-  isActive: computed('parentView._slots.[]', '_name', function () {
-    return this.get('parentView._slots').contains(this.get('_name'))
+  isActive: computed('_parentView._slots.[]', '_name', function () {
+    return this.get('_parentView._slots').contains(this.get('_name'))
   })
 })
 
