@@ -118,6 +118,12 @@ See the **[demo](http://ciena-blueplanet.github.io/ember-block-slots)** for addi
 Found a corner case?  Thought of a design pattern we haven't listed?
 PRs and issues are welcome!
 
+### Contributing
+
+This project uses pr-bumper https://github.com/ciena-blueplanet/pr-bumper to publish to npm - add a semver comment in your PR in the following format: #fix# / #minor# / #major#
+
+We also lint the project using eslint - to check for errors and fix basic style issues run `./node_modules/.bin/eslint . --fix` in the root of the project (probably a better command for this)
+
 ### Credits
 
 Thanks to [@runspired](https://twitter.com/Runspired) for the initial inspiration for this implementation.
