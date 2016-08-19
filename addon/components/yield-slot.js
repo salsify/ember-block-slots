@@ -5,6 +5,7 @@ const {
 } = Ember
 import layout from '../templates/components/yield-slot'
 import { PropTypes } from 'ember-prop-types'
+import Slots from '../mixins/slots'
 
 /**
  * {{yield-slot}} provides a target for {{block-slot}} content
@@ -52,8 +53,8 @@ const YieldSlotComponent = Component.extend({
 
   // Use nearestOfType to determine the parent view, just in case there are
   // other components sandwiched between the block slot and the Slots mixin
-  _parentView: computed(function() {
-     return this.nearestOfType(Slots)
+  _parentView: computed(function () {
+    return this.nearestOfType(Slots)
   }),
 
   // A yield slot is considered active if a block slot registered a matching
