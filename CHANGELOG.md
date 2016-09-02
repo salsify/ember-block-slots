@@ -1,3 +1,13 @@
+# 1.1.4
+
+* Removed the 'complex' scenario from the demo, this should be written in a clearer way
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/40)
+<!-- Reviewable:end -->
+
+
 # 1.1.3
 
 * Yield slots will now find the nearest component with slots to register against - a direct parent with slots is no longer required
