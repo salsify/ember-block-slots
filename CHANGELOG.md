@@ -2,40 +2,20 @@
 
 * Yield slots will now find the nearest component with slots to register against - a direct parent with slots is no longer required
 
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/38)
-<!-- Reviewable:end -->
-
 
 # 1.1.2
 
 - Added ember-prop-types to the addon blueprint to install the dependency during `ember install`
-
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/36)
-<!-- Reviewable:end -->
 
 
 # 1.1.1
 
 - Added ember-prop-types to the addon blueprint to install the dependency during `ember install`
 
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/36)
-<!-- Reviewable:end -->
-
 
 # 1.1.0
 
 Supporting nested block slots
-
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/34)
-<!-- Reviewable:end -->
 
 
 # 1.0.1
@@ -43,11 +23,6 @@ This change is [<img src="https://reviewable.io/review_button.svg" height="34" a
 - ensures that the array is unique per instance
 
 fixes #31
-
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/32)
-<!-- Reviewable:end -->
 
 
 # 1.0.0
@@ -62,12 +37,6 @@ This change is [<img src="https://reviewable.io/review_button.svg" height="34" a
 - `block-params` are now specified against `yield-slot` instead of `yield`
 - `as |slot|` is no longer required on the component interface
 - `slot` is no longer required on the `block-slot` interface
-
-<!-- Reviewable:start -->
----
-This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/29)
-<!-- Reviewable:end -->
-
 
 # 0.12.4
 
