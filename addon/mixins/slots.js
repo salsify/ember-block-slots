@@ -21,6 +21,6 @@ export default Mixin.create({
     this.get('_slots').removeObject(name)
   },
   _isRegistered (name) {
-    return this.get('_slots').contains(name)
+    return this.get('_slots').includes(name)
   }
 })
