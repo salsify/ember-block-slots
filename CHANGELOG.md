@@ -1,3 +1,12 @@
+# 1.1.5
+* Use includes method over contains to fix deprecation in Ember 2.8
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/41)
+<!-- Reviewable:end -->
+
+
 # 1.1.4
 
 * Removed the 'complex' scenario from the demo, this should be written in a clearer way
