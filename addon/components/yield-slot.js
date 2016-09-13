@@ -60,7 +60,7 @@ const YieldSlotComponent = Component.extend({
   // A yield slot is considered active if a block slot registered a matching
   // name against the parent component with the Slots mixin
   isActive: computed('_parentView._slots.[]', '_name', function () {
-    return this.get('_parentView._slots').contains(this.get('_name'))
+    return this.get('_parentView._slots').includes(this.get('_name'))
   })
 })
 
