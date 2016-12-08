@@ -1,3 +1,12 @@
+# 1.1.7
+* 2.10.0 now freezes params, need to clone Array before `Ember.A`ing
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/44)
+<!-- Reviewable:end -->
+
+
 # 1.1.6
 * Forgot one instance where contains was used. Converting that to includes fixes the deprecations in 2.8.
 
