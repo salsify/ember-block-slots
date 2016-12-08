@@ -25,7 +25,7 @@ const {
  * <div>a b c</div>
  */
 export function blockParams (params) {
-  return A(params)
+  return A(params.slice())
 }
 
 export default Helper.helper(blockParams)
