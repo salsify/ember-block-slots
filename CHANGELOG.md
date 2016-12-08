@@ -1,3 +1,12 @@
+# 1.1.8
+- Added a PULL_REQUEST_TEMPLATE.md file
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/46)
+<!-- Reviewable:end -->
+
+
 # 1.1.7
 * 2.10.0 now freezes params, need to clone Array before `Ember.A`ing
 
