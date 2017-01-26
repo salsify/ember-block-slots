@@ -1,3 +1,13 @@
+# 1.1.9
+
+Expand ember-prop-types dependency range and remove unnecessary installation blueprint.
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/48)
+<!-- Reviewable:end -->
+
+
 # 1.1.8
 - Added a PULL_REQUEST_TEMPLATE.md file
 
