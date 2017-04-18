@@ -37,7 +37,7 @@ const BlockSlot = Component.extend({
 
   // == Events ================================================================
 
-  _init: on('init', function () {
+  _didInsertElement: on('didInsertElement', function () {
     // Active the yield slot using the slots interface
     const slottedComponent = this.nearestOfType(Slots)
     if (!slottedComponent._isRegistered(this._name)) {
