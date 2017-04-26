@@ -1,3 +1,15 @@
+# 1.1.10 (2017-04-26)
+
+Delay the initialization of the `block-slot` to the `didInsertElement` callback.
+
+`Assertion Failed: You modified "isActive" twice on <xxx@component:yield-slot::ember1525> in a single render. It was rendered in "component:yield-slot" and modified in "component:block-slot". This was unreliable and slow in Ember 1.x and is no longer supported. See https://github.com/emberjs/ember.js/issues/13948 for more details.`
+
+<!-- Reviewable:start -->
+---
+This change is [<img src="https://reviewable.io/review_button.svg" height="34" align="absmiddle" alt="Reviewable"/>](https://reviewable.io/reviews/ciena-blueplanet/ember-block-slots/50)
+<!-- Reviewable:end -->
+
+
 # 1.1.9
 
 Expand ember-prop-types dependency range and remove unnecessary installation blueprint.
