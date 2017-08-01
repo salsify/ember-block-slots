@@ -1,5 +1,13 @@
 #!/bin/bash
 
+source $(npm root -g)/pr-bumper/.travis/is-bump-commit.sh
+
+if isBumpCommit
+then
+  echo "Skipping gh-pages publish for version bump commit"
+  exit 0
+fi
+
 VERSION=`node -e "console.log(require('./package.json').version)"`
 TMP_GH_PAGES_DIR=.gh-pages-demo
 
@@ -15,7 +23,6 @@ git clone https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG} ${TMP_GH_PAGES_
 cd ${TMP_GH_PAGES_DIR}
 git checkout gh-pages
 git rm -rf *
-cp -r ../docs .
 cp -r ../dist/* .
 git add --all
 git commit -m "[ci skip] Automated gh-pages commit of ${VERSION}"
