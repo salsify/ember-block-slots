@@ -1,6 +1,6 @@
 {
   "name": "ember-block-slots",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Support for targeted yield slots within a component block",
   "homepage": "http://ciena-blueplanet.github.io/ember-block-slots",
   "directories": {
