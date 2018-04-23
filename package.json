@@ -26,7 +26,7 @@
   "dependencies": {
     "ember-cli-babel": "^6.12.0",
     "ember-cli-htmlbars": "^2.0.3",
-    "ember-prop-types": ">=2.0.0 <4.0.0"
+    "ember-prop-types": "github:SameWave/ember-prop-types"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
