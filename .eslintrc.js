@@ -4,13 +4,9 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module'
   },
-  extends: [
-    'eslint:recommended',
-    'frost-standard'
-  ],
+  extends: ['eslint:recommended'],
   env: {
     browser: true
   },
-  rules: {
-  }
+  rules: {}
 };

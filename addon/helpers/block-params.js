@@ -1,7 +1,7 @@
 /* eslint valid-jsdoc:0 */
-import { A } from '@ember/array'
+import { A } from '@ember/array';
 
-import Helper from '@ember/component/helper'
+import Helper from '@ember/component/helper';
 
 /**
  * Per yield slot parameters made available to an associated block slot
@@ -22,8 +22,8 @@ import Helper from '@ember/component/helper'
  *
  * <div>a b c</div>
  */
-export function blockParams (params) {
-  return A(params.slice())
+export function blockParams(params) {
+  return A(params.slice());
 }
 
-export default Helper.helper(blockParams)
+export default Helper.helper(blockParams);

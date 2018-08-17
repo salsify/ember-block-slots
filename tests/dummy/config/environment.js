@@ -1,7 +1,7 @@
 /* eslint-env node */
-'use strict'
+'use strict';
 
-module.exports = function (environment) {
+module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'dummy',
     podModulePrefix: 'dummy/pods',
@@ -19,25 +19,25 @@ module.exports = function (environment) {
       }
     },
     APP: {}
-  }
+  };
 
   switch (environment) {
     case 'production':
-      ENV.rootURL = '/ember-block-slots'
-      break
+      ENV.rootURL = '/ember-block-slots';
+      break;
 
     case 'test':
       // Testem prefers this...
-      ENV.rootURL = '/'
-      ENV.locationType = 'none'
+      ENV.rootURL = '/';
+      ENV.locationType = 'none';
 
       // keep test console output quieter
-      ENV.APP.LOG_ACTIVE_GENERATION = false
-      ENV.APP.LOG_VIEW_LOOKUPS = false
+      ENV.APP.LOG_ACTIVE_GENERATION = false;
+      ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-      ENV.APP.rootElement = '#ember-testing'
-      break
+      ENV.APP.rootElement = '#ember-testing';
+      break;
   }
 
-  return ENV
-}
+  return ENV;
+};
