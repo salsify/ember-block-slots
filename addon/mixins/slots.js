@@ -12,13 +12,13 @@ export default Mixin.create({
   }),
 
   _activateSlot(name) {
-    this.get('_slots').addObject(name);
+    this._slots.addObject(name);
   },
 
   _deactivateSlot(name) {
-    this.get('_slots').removeObject(name);
+    this._slots.removeObject(name);
   },
   _isRegistered(name) {
-    return this.get('_slots').includes(name);
+    return this._slots.includes(name);
   }
 });

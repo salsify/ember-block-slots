@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-on-calls-in-components */
 import { readOnly } from '@ember/object/computed';
 import Component from '@ember/component';
 import { defineProperty } from '@ember/object';
@@ -25,7 +26,7 @@ const BlockSlot = Component.extend({
   _didInsertElement: on('didInsertElement', function() {
     // Active the yield slot using the slots interface
     const slottedComponent = this.nearestOfType(Slots);
-    if (!slottedComponent._isRegistered(this._name)) {
+    if (slottedComponent && !slottedComponent._isRegistered(this._name)) {
       slottedComponent._activateSlot(this._name);
       // Store the slotted component for use during deactivation
       this.set('slottedComponent', slottedComponent);

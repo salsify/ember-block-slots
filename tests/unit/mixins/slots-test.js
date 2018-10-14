@@ -1,13 +1,12 @@
 import EmberObject from '@ember/object';
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
+import { module, test } from 'qunit';
 import SlotsMixin from 'ember-block-slots/mixins/slots';
 
-describe('SlotsMixin', function() {
+module('Unit | Mixin | SlotsMixin', function() {
   // Replace this with your real tests.
-  it('works', function() {
+  test('it works', function(assert) {
     let SlotsObject = EmberObject.extend(SlotsMixin);
     let subject = SlotsObject.create();
-    expect(subject).to.be.ok;
+    assert.ok(subject);
   });
 });

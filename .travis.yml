@@ -1,7 +1,9 @@
+---
 language: node_js
 node_js:
-- '6.11.0'
-- 'stable'
+  # we recommend testing addons with the same minimum supported node version as Ember CLI
+  # so that your addon works for all apps
+  - "6"
 
 sudo: false
 dist: trusty
@@ -19,12 +21,12 @@ cache:
 
 env:
   matrix:
-  - EMBER_TRY_SCENARIO=ember-lts-2.8
-  - EMBER_TRY_SCENARIO=ember-lts-2.12
-  - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-lts-2.16
+  - EMBER_TRY_SCENARIO=ember-lts-2.18
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
+  - EMBER_TRY_SCENARIO=ember-default-with-jquery
   global:
     - CXX=g++-4.8
     - secure: tac6xsCM4g2jUoimHNiL6ePnMCHrXBSL5FwwqdexkfNUjY4iduTN5te5PJDyjVBJYvDCmn22sitcSI5KjPip/m6MC7LM9l5X+Ut2RCoqttjXR7UL+2O53wIAcQ1Np6yYy+leiL6A6+vH/nRrhjArVk2b+B0JdMBSxKX3rNTCkjbep+vTsKmuqmpXOIM9RbBwi6OS3LMjQNk198qHL10ayVzP+Nc5Xf7262VVObR9eivRGma/MhXbv0qAALCoOsS0aK5KXAwXziCQwa3V7KNhtlWgaMVU/fHNKpan23ahv3b5ZMTnbfPI6oPyqLYge931MKibmaaUOe0pKaqSewUJK9RkDW+0qh1MLrY8hC0MgET9aFRSXE1SWIRQViDG7PTUxHE8DnReQnNNE3fYqP4kYakUbbHCPD6q+21CV76y4fRxRsBg/8tgUtf/OuO2fjXLjC+ZBOa5/SFosVnw2Nn0agd+JHnbaO0JEM2dZCoz6JxWVYvG98QvE/rwHY/AeIHeuNTdUZVws6evHzLlkiQaQlIWMtqoV5ThOu1tBU4TuuNeIIswX1D9ucjjufdXzsQRQlgQ2HfV7mEj6nTRIyGhpaobV8WnavLtqsvSc/V1kcW9PTQdim/oA9Z4wHwrW22TBA+HpomRXUQo3LsiYLACzI0i5s9o/aeIR9eJGzD7xAI=

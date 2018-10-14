@@ -1,4 +1,3 @@
-/* eslint-env node */
 module.exports = {
   framework: 'mocha',
   test_page: 'tests/index.html?hidepassed&coverage',
@@ -9,11 +8,14 @@ module.exports = {
     Chrome: {
       mode: 'ci',
       args: [
-        '--disable-gpu',
         '--headless',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-software-rasterizer',
+        '--mute-audio',
         '--remote-debugging-port=9222',
         '--window-size=1440,900'
-      ]
+      ].filter(Boolean)
     }
   }
 };

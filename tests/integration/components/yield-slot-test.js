@@ -1,46 +1,41 @@
-import { expect } from 'chai';
-import { describeComponent, it } from 'ember-mocha';
+import { A } from '@ember/array';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import Component from '@ember/component';
+import SlotsMixin from 'ember-block-slots/mixins/slots';
 
-describeComponent.skip(
-  'yield-slot',
-  'Integration: YieldSlotComponent',
-  {
-    integration: true
-  },
-  function() {
-    it('Main slot yields', function() {
-      this.render(hbs`
-        {{#yield-slot 'header' isSlotActive=true}}
-          Some yielded text
+module('Integration | Component | yield-slot', function (hooks) {
+  setupRenderingTest(hooks);
+
+  test(`inverse slot yields`, async function (assert) {
+
+    this.owner.register('component:my-yield-component', Component.extend(SlotsMixin, {
+      init() {
+        this._super(...arguments);
+        this.set('value', A(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']));
+      },
+      layout: hbs`
+        {{yield}}
+        {{#yield-slot "main" value}}
+          {{yield}}
         {{else}}
-          Default yielded text
+           Nothing to see here...
         {{/yield-slot}}
-      `);
+      `
+    }));
 
-      expect(
-        this.$()
-          .text()
-          .trim(),
-        'Text shows in the main yielded'
-      ).to.eql('Some yielded text');
-    });
+    this.owner.register('component:my-component', Component.extend({
+      layout: hbs`
+        {{#my-yield-component}}
+        {{/my-yield-component}}
+      `
+    }));
 
-    it('Inverse slot yields', function() {
-      this.render(hbs`
-        {{#yield-slot 'header' isSlotActive=false}}
-          Some yielded text
-        {{else}}
-          Default yielded text
-        {{/yield-slot}}
-      `);
+    await render(hbs`{{my-component}}`);
 
-      expect(
-        this.$()
-          .text()
-          .trim(),
-        'Text shows in the default yield'
-      ).to.eql('Default yielded text');
-    });
-  }
-);
+    assert.equal(
+      this.element.textContent.trim(), 'Nothing to see here...');
+  });
+});
