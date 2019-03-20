@@ -1,29 +1,29 @@
-import Ember from 'ember'
+import Controller from '@ember/controller';
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   controllerExternal: 0,
   controllerValue: 'foo',
   isCondition: false,
 
   actions: {
-    changeValue () {
+    changeValue() {
       if (this.get('controllerValue') === 'foo') {
-        this.set('controllerValue', 'barr')
+        this.set('controllerValue', 'barr');
       } else {
-        this.set('controllerValue', 'foo')
+        this.set('controllerValue', 'foo');
       }
     },
 
-    changeExternal () {
-      this.set('controllerExternal', this.get('controllerExternal') + 1)
+    changeExternal() {
+      this.set('controllerExternal', this.get('controllerExternal') + 1);
     },
 
-    external () {
-      window.alert('External action')
+    external() {
+      window.alert('External action');
     },
 
-    toggleCondition () {
-      this.toggleProperty('isCondition')
+    toggleCondition() {
+      this.toggleProperty('isCondition');
     }
   }
-})
+});

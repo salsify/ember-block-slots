@@ -1,3 +1,3 @@
-import SlotsMixin from './mixins/slots'
+import SlotsMixin from './mixins/slots';
 
-export default SlotsMixin
+export default SlotsMixin;

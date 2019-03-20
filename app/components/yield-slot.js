@@ -1,1 +1,1 @@
-export { default } from 'ember-block-slots/components/yield-slot'
+export { default } from 'ember-block-slots/components/yield-slot';
