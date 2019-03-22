@@ -1,64 +1,74 @@
+---
 language: node_js
-sudo: false
 node_js:
-- '5.0'
-- 'stable'
-branches:
-  except:
-  - /^v[0-9\.]+/
-cache:
-  directories:
-  - node_modules
+  # we recommend testing addons with the same minimum supported node version as Ember CLI
+  # so that your addon works for all apps
+  - "6"
+
+sudo: false
+dist: trusty
+
 addons:
   apt:
     sources:
     - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
+
+cache:
+  directories:
+  - node_modules
+
 env:
   matrix:
-  - EMBER_TRY_SCENARIO=default
+  - EMBER_TRY_SCENARIO=ember-lts-2.16
+  - EMBER_TRY_SCENARIO=ember-lts-2.18
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
+  - EMBER_TRY_SCENARIO=ember-default-with-jquery
   global:
     - CXX=g++-4.8
-    - secure: rv9zBv9LNpB4vZrdQp1XxaPnklSF6WXJUmsyiwi500upCVfs5fUPn2NtNWzm53IAIGN0CQorwZFjsUL70tnGEjPWcZkhr8nHE/2mx1qqaXvtM2vP7vTchh4OlmgvHsNlNexVV1Eocq/ZNBAjRjWmE1XxdwKiKTAesdHLS8K2bY7gtXoedJeBdsVYF4D2txUlVSACN84/lH5eLdTUkbBCQ77PUM3b0kt9LRvcZ60+UOTi+G39Cl1Hb7YUU4Eb0+g4jqIyZyn99HmARGoj0lxTerzVBINENbk3sxdLQSlXNw9FESLNcJ5NyNZIVIJhV/7KY4p/7A+xQfSOv/B1NlVUxnxi8Q8ZMOOC5KdhTqytmzJ6qmQAfkS4k+IpL0BNoeXORxhkU3tC76xKJTQx+5vrT9LL9X6014fUsdpmR1T7T7BJlkc0jNp4eVIxAYGecIJpGRaj0tbI7vKIlgJOXr2hKYHUTuIND1xYHKkXz0yhw1wrdr/CmbItIqBEMvo/MUikbVw/EytwsGW5KtGITUtlIm7BKvAOR23jjRzy6QCcDahlOQuFpipEbNbJ+9C+GXQu7MEUwbdzKLNwPOIuhavNpfrE1KZMTr1W6QcJLCZ1So2vtPQ0CLkHv5AIpJXzo1X319ha62ITM4PPQF5PCcDjxdvBjF/mgBcoDRAu4mAuEgs=
+    - secure: tac6xsCM4g2jUoimHNiL6ePnMCHrXBSL5FwwqdexkfNUjY4iduTN5te5PJDyjVBJYvDCmn22sitcSI5KjPip/m6MC7LM9l5X+Ut2RCoqttjXR7UL+2O53wIAcQ1Np6yYy+leiL6A6+vH/nRrhjArVk2b+B0JdMBSxKX3rNTCkjbep+vTsKmuqmpXOIM9RbBwi6OS3LMjQNk198qHL10ayVzP+Nc5Xf7262VVObR9eivRGma/MhXbv0qAALCoOsS0aK5KXAwXziCQwa3V7KNhtlWgaMVU/fHNKpan23ahv3b5ZMTnbfPI6oPyqLYge931MKibmaaUOe0pKaqSewUJK9RkDW+0qh1MLrY8hC0MgET9aFRSXE1SWIRQViDG7PTUxHE8DnReQnNNE3fYqP4kYakUbbHCPD6q+21CV76y4fRxRsBg/8tgUtf/OuO2fjXLjC+ZBOa5/SFosVnw2Nn0agd+JHnbaO0JEM2dZCoz6JxWVYvG98QvE/rwHY/AeIHeuNTdUZVws6evHzLlkiQaQlIWMtqoV5ThOu1tBU4TuuNeIIswX1D9ucjjufdXzsQRQlgQ2HfV7mEj6nTRIyGhpaobV8WnavLtqsvSc/V1kcW9PTQdim/oA9Z4wHwrW22TBA+HpomRXUQo3LsiYLACzI0i5s9o/aeIR9eJGzD7xAI=
+
 matrix:
   fast_finish: true
   allow_failures:
   - env: EMBER_TRY_SCENARIO=ember-canary
+  - node: 'stable'
+
 before_install:
 - npm config set spin false
-- npm install -g coveralls pr-bumper
-- pr-bumper check
+- npm install -g coveralls pr-bumper@^2.0.0
+- $(npm root -g)/pr-bumper/.travis/maybe-check-scope.sh
+
 install:
-- npm install
-- bower install
+- $(npm root -g)/pr-bumper/.travis/maybe-install.sh
+
 before_script:
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 3 # give xvfb some time to start
+
 script:
-- npm run lint
-- ember try:one $EMBER_TRY_SCENARIO --- ember test
+- $(npm root -g)/pr-bumper/.travis/maybe-test.sh
+- .travis/maybe-bump-version.sh
+
 after_success:
-- .travis/publish-coverage.sh
-before_deploy:
-- pr-bumper bump
+- .travis/maybe-publish-coverage.sh
+- .travis/maybe-publish-gh-pages.sh
+
 deploy:
   provider: npm
   email: npm.ciena@gmail.com
   skip_cleanup: true
   api_key:
-    secure: ZhnqvrA5duH9cdHb4TzFYaAIqrKZZRftC9fICUITmbfr+gDe4jOhx3UDV8L0FpPxOX2V66+zt9yY1wEKQ3KxuG2+aVKO/eNvYMMW1qYjVB4eN+9NcBI+hQMBDU+/cqIoZIM/wP82fxkNRgxvQUB9UyqlnvmITNaN3sk8HtjXHOB/PboiHZ9iYYIlngifU4QJiT3H/BmGgxXwZcuKv/ypGfxu0Far9gW37YW0nxCxzwrhsNH9ZioztRs5Dp+PWJQUksYgmDXIMSpluDr10p56NTCHhkKbMDnbK0t9Z4XdTysFwLvkp0k3ON2hbpJ6rC3ids+T/w1fExpMOtk4mj0rXUVyeH5jM/7Yg5ORX0ywzpj6jEKYQgS/8iAFlGUoWvlXBRY1nVQ7NF1QYR8iD8YKGtaA0xZPUlbEKsrnAKVroZEJiHkBlgcxREaVCjfr1OlFLqxJVZJqp6pR9brfrop5zJBU6MmMQUQE4zXm7UcfQleIkSFmB/fqqKW1eikQPPvU5bCaHVEuKHS2lQrYtR5xptowA8hmeXlFugKmCPoUlsfXIQr8SnNWatipCxEQzlE3lhpJX0912bCP8NsJutIX8CWh4pH9yIG3F3g7DtnK1gprY7JRDqu43KR15B/9lInJJ16ndE3w7VMlIdzGw8WS8YJ+B5QC4tboiZMxgSYXrFw=
+    secure: ZHHk6EOGjm4emGgPZQk5COpiSDG+SSvfFgLI4wnFPf5kIiYM4klWA+gaLM0LAAOLTHb0lKKdRzneynp4pST4VtSZQ/M65qZ5fAVpfRAg2dFU71CUTmLxReW7NEGl/XXnXt9t21KPfr3kWS1Xu7lIuvURhofOPNn+89HXJBAh8XGygfou/43RMVj0+URinP8Ka7fwXG6HuwdJjhG7upicob+reQvHK82+y/yyDgoSY4HAnJ8n9H2sVoQkOwZ/qzfunwZiTgJS+qxPBtcI1AhKb4rfCz884b21VavlmwNKO5Ipq8EGIprb/b8fsL5byhJFSP7+D4Vw/CwM5hLdONbovt73asmLc6gtygIM+BNOpO0LmtjT5TqLsbg+oGcd3GLkMi3kqAp8oTlLhQ1IU+XQlbB88oiVzEswBj7CrPx+4ZOev80nMnUgb3lEPVj7O2C1lt1zXWeH4xiOdzKiFMlrR5Ga9nY/cnQN3J1++GXgniozyQIyefKaqXT4qMZz+4FFnwlOKkTeVAf6lkiVKeKdE2f+TF5pFtullqfJCHSZfcLAEqQUGJphzhkWBeakYy7kFPZyasX+875ps1zjeZ42i1sQuEFWj6F1vNzFEJpp+7vw0bgB+LrLj4zVu3KM4r/r8p+cD8KnhsvejggoEue+8jD5EK8uFFe5AfLJFsNkO4U=
   on:
-    branch: master
+    all_branches: true
     condition: "$EMBER_TRY_SCENARIO = 'default'"
-    node: 'stable'
-    tags: false
-after_deploy:
-- .travis/publish-gh-pages.sh
+    node: '6.11.0'
+    tags: true
 notifications:
   slack:
-    secure: TbZQYn1cNqM+Aej6wTxMH/T6u9W+scZCj7IRJGUdVw+O0gFf1rm//OVVavRPx0OJMXHbPiV6OT7AxPXu0FhpdTaP3Tf3vVQKzBh3Z1ijRXFa+KEttKMLad7rm+k6kct7UU1RVWCVfzDczVGPXJj5OkrLBgeUcPfhEiG3SW5GzGOHcNYUer2y/jcKIAxEcoQAEPI0aW/f4uRk6sRiSu6YfnKyvqs481aK2gIfOvRXm0PX2VH78lzdZ8Fj0ovs0juR4t2IcUHKhJmppIlvaqA1dzXbFd7lr8i6a10mb7c1J+hlkzQz3iBuWxj/kNywupOJNZTf5pnwOJAdQq4UCEVd2yC2GHAU3Q1Ac7XA2d7lwGATpy5dj7ZESkM8uaDPel/A/CMFT7hNjO/FbQvC16CImFnpjiX7eW/YVRXf3D6bfmyL8woJfyyszHAsQPg09Xv9W+eo2BIQHy2RUQjSGbxFz27fHkV3KkjmTYinW827jLhxdxrWvQMdDnfohXyRXRF9Fe98cKxGsWJ8TTc+/hJD2Fp0iwd23LtsS0HqyjfS0IMQbRMAkha1PBQdu5X/jbpKAFdc7Fr+D06XUlTywZOmzk/QtSVQ8QPMwmntc7VvGI2KYfuTAYPNQMAxOPqEMgaxXfuvh07y1IaOAX+oFLUF8EnIxOMliewVKuk2fC0g/yY=
+    secure: Jv3DoJADOOFx1sDRls9M7zqap8JrxqoM9UjSqkYsYBrg864To1mhXDL6ZMdFte27mXWw2hRYoisKNtQvtvemFdRvuiLixBsnl5ISvdIMnGnoYD6iOBM/IovgvKCM+wN3yphWLiI9LfmR1ASU1aBSysyPjYrC/P4xu0Pdp/R/Ah/xn31ei2k6+U2pNXbxVeMSMmXTtQqNYfyeO8rvmcm5LMpavD8j6tVktsR7M0NU5pM1Z9XVjruJRM1fYh9x0CtXk3GTxZ90EKrFReeIskpt3MPtpIOx+3Zwfpyug8QNRzh9iK8CtggNcUpx109KN0iNOfSG3jhLx9z5/LpHT1SAeQurh3dqgjRUPdrrLcsVy5HhHWAxCEdh1Md6DWa/t2M6fqXj+vmvR9Uyfl9jxNVoAEmhJksc74O1JCna7VDVHFxiIYbpniLWcOG8lw3CmRKQ/6UB8aUDny7VYh8L6a//+u149Np6fIFt2C59qxtZ8RHIgQtHiN7mhogP7zpYGT2oRmfj9MGdqpiqk4wsM4qfFO2hNjZB2Uk/nLvNMfAYCobijfY/qwyXaXRN6INdWRAfI4+v8BA2ptOmFo6077ZkmTHKvm6EUBL9xc2TKMRScuoMSITuJktKWA4dVy0/da3EPci0eWRYA4DWLDGCteNzqQD7qRsEkcS/vzrOQ01/cCw=

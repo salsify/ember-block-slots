@@ -1,3 +1,11 @@
+# 1.1.11 (2017-08-01)
+* **Added** a CONTRIBUTING.md file
+* **Updated** travis CI build to use pr-bumper version 2
+* **Updated** PULL_REQUEST_TEMPLATE.md for pr-bumper `#none#` support
+* **Updated** secure auth tokens
+* **Updated** ember-runtime-enumerable-includes-polyfill to version 2 in PR: https://github.com/ciena-blueplanet/ember-block-slots/pull/51
+
+
 # 1.1.10 (2017-04-26)
 
 Delay the initialization of the `block-slot` to the `didInsertElement` callback.
