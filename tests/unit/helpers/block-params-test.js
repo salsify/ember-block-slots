@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import { blockParams } from 'ember-block-slots/helpers/block-params';
+import { blockParams } from '@salsify/ember-block-slots/helpers/block-params';
 
 module('Unit | Helper | block-params', function () {
   test('"blockParams()" returns an array', function (assert) {

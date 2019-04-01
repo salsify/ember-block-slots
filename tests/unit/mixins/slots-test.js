@@ -1,6 +1,6 @@
 import EmberObject from '@ember/object';
 import { module, test } from 'qunit';
-import SlotsMixin from 'ember-block-slots/mixins/slots';
+import SlotsMixin from '@salsify/ember-block-slots/mixins/slots';
 
 module('Unit | Mixin | SlotsMixin', function() {
   // Replace this with your real tests.

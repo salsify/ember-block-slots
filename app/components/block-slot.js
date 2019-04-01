@@ -1,1 +1,1 @@
-export { default } from 'ember-block-slots/components/block-slot';
+export { default } from '@salsify/ember-block-slots/components/block-slot';
