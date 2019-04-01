@@ -4,7 +4,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import Component from '@ember/component';
-import SlotsMixin from 'ember-block-slots/mixins/slots';
+import SlotsMixin from '@salsify/ember-block-slots/mixins/slots';
 
 module('Integration | Component | block-slot', function (hooks) {
   setupRenderingTest(hooks);

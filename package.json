@@ -1,6 +1,6 @@
 {
-  "name": "ember-block-slots",
-  "version": "1.1.11",
+  "name": "@salsify/ember-block-slots",
+  "version": "1.2.0",
   "description": "Support for targeted yield slots within a component block",
   "keywords": [
     "ember-addon",
@@ -10,7 +10,7 @@
     "addon",
     "component"
   ],
-  "repository": "git@github.com:ciena-blueplanet/ember-block-slots.git",
+  "repository": "git@github.com:salsify/ember-block-slots.git",
   "license": "MIT",
   "author": "Steven Glanzer (https://github.com/sglanzer)",
   "directories": {
