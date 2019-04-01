@@ -1,6 +1,6 @@
 {
   "name": "@salsify/ember-block-slots",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Support for targeted yield slots within a component block",
   "keywords": [
     "ember-addon",
