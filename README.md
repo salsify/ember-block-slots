@@ -17,8 +17,8 @@ Adds contextual **layout** to component interfaces.
 
 #### *"I know why this matters, take me straight to the [usage](#usage)*"
 
-Ember has a number of tools for component authors: a yield, block params, contextual components 
-and block defaults (else/inverse).  However, since only a single yield is available, Ember does 
+Ember has a number of tools for component authors: a yield, block params, contextual components
+and block defaults (else/inverse).  However, since only a single yield is available, Ember does
 *not* provide a way for component authors to hide complex layouts behind a component interface.
 For authors of higher-order components this is a problem.
 
@@ -29,7 +29,7 @@ Suppose you want to create a higher-order component that acts as an inventory br
 ![Mock inventory browser](./.images/inventory-browser.png)
 
 You want to arrange a title bar on the top of the page, a filter pane on the left and a list
-on the right.  The title bar can be customized with summary information (text, badges, graphs) 
+on the right.  The title bar can be customized with summary information (text, badges, graphs)
 and contexual actions (e.g. keyword search, add).  The filter pane needs to be wired to the list,
 but filtering should be handled in the route/controller.  The list has a set of potential controls
 (e.g. sort, paginate, expand/collapse) and contextual actions based on the items selected that
@@ -37,16 +37,16 @@ should also be handled in the route/controller.
 
 ##### There are two choices available
 
-The first choice is to **pre-select all the components** (e.g. form, list, buttons, links, graphs) 
-to fill these roles and proxy the relevant properties through the component interface, modifying 
-the interface whenever additional features are available.  Maybe your underlying components are 
+The first choice is to **pre-select all the components** (e.g. form, list, buttons, links, graphs)
+to fill these roles and proxy the relevant properties through the component interface, modifying
+the interface whenever additional features are available.  Maybe your underlying components are
 stable and maybe your feature set never expands, but don't bet the house on it; it's more likely
 that you'll need to rev and release your component based on the progression of the components you
 select.  This means **a lot of maintenance and a broad interface** - not ideal.
 
 The second choice is to **loosely couple the components, providing a number of CSS classes** and rely
 on the consumer to wrap the components in the correct HTML to layout the pattern as required.
-This works fine for a single instance, but **before you know it there are 10 instances of the pattern** 
+This works fine for a single instance, but **before you know it there are 10 instances of the pattern**
 in your product and as the design team keeps making minor (or major) tweaks **and each of your browsers
 is starting to look a bit different...**
 
@@ -55,7 +55,7 @@ is starting to look a bit different...**
 You use this addon :wink:
 
 With multiple yield targets available, you're now able to combine the structured DOM from the first choice
-with the loose coupling of the second choice.  **Now consumers of the addon don't need to worry about:** 
+with the loose coupling of the second choice.  **Now consumers of the addon don't need to worry about:**
 - **Layout changes** *"Oh look, the design team made the title bar a footer..."*
 - **Component updates** *"Lists now support pagination!...but this component hasn't upgraded..."*
 - **Proxying actions** *"But I really need 10 contextual action buttons/links in this case..."*
@@ -77,7 +77,7 @@ import SlotsMixin from 'ember-block-slots'
 export default Ember.Component.extend(SlotsMixin, {
 ```
 
-In the component template, yield once to allow instances to register block slots, then provide 
+In the component template, yield once to allow instances to register block slots, then provide
 one or more named yield slots
 
 ```hbs
